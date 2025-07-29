@@ -1,5 +1,9 @@
 package mxkcpy.badreads.data;
 
+import mxkcpy.badreads.data.BookEnums.Genre;
+import mxkcpy.badreads.data.BookEnums.CoverType;
+import mxkcpy.badreads.data.BookEnums.Publisher;
+
 import java.util.List;
 import java.util.zip.DataFormatException;
 

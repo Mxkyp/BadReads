@@ -6,6 +6,10 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 import java.util.Random;
 import java.util.zip.DataFormatException;
+import mxkcpy.badreads.data.BookEnums.Genre;
+
+import mxkcpy.badreads.data.BookEnums.Publisher;
+import mxkcpy.badreads.data.BookEnums.CoverType;
 
 import static org.junit.jupiter.api.Assertions.*;
 

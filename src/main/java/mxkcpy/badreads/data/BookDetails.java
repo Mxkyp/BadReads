@@ -1,7 +1,7 @@
 package mxkcpy.badreads.data;
 
-import mxkcpy.badreads.data.BookEnums.Genre;
 import mxkcpy.badreads.data.BookEnums.CoverType;
+import mxkcpy.badreads.data.BookEnums.Genre;
 import mxkcpy.badreads.data.BookEnums.Publisher;
 
 import java.util.List;

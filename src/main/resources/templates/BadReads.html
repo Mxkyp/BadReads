@@ -2,9 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Hello there!</title>
 </head>
 <body>
+    <table>
+        <tr>
+            <th>BOOKS</th>
+        </tr>
+        <tr th:each="b: ${books}">
+            <td th:text="${b.title}"></td>
+            <td th:text="${b.pageNumber}"></td>
+            <td th:text="${b.coverType}"></td>
+            <td th:text="${b.author}"></td>
+            <td th:text="${b.publisher}"></td>
+            <td th:text="${b.isbn13}"></td>
+            <td th:each="gen: ${b.genres}"></td>
+        </tr>
+    </table>
 
 </body>
 </html>

@@ -7,12 +7,14 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.zip.DataFormatException;
 
 @Repository
 public class DbBookRepository implements BookRepository {
-    List<Book> books;
+    Map<Integer, Book> books;
 
     @Override
     public Book findById(long id) {
@@ -20,7 +22,7 @@ public class DbBookRepository implements BookRepository {
     }
 
     @Override
-    public List<Book> getAll() throws DataFormatException {
+    public Map<Integer, Book> getAll() throws DataFormatException {
         Book book1 = new Book(new BookDetails(
                 320,
                 BookEnums.CoverType.HARD_COVER,
@@ -73,7 +75,11 @@ public class DbBookRepository implements BookRepository {
 
         Book[] bookArr = new Book[]{book1, book2, book3, book4, book5};
 
-        books = Arrays.asList(bookArr);
+        books = new HashMap<>(bookArr.length);
+
+        for (Book b : bookArr) {
+            books.put(b.getId(), b);
+        }
         return books;
     }
 }

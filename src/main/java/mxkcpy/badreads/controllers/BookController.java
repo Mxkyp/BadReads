@@ -6,9 +6,11 @@ import mxkcpy.badreads.services.BookService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public final class BookController {
@@ -20,15 +22,18 @@ public final class BookController {
 
     @GetMapping("/")
     public String home(Model model) {
-        List<Book> books = bookService.getAll();
-        List<BookDetails> details = new ArrayList<>();
+        Map<Integer, Book> books = bookService.getAll();
 
-        for (Book book : books) {
-            details.add(book.getDetails());
-        }
-
-        model.addAttribute("books", details);
+        model.addAttribute("books", books);
         return "BadReads";
+    }
+
+    @GetMapping("/book")
+    public String book(Model model, @RequestParam int id) {
+        Book book = bookService.getBookById(id);
+        model.addAttribute("book", book);
+        model.addAttribute("bookDetails", book.getDetails());
+        return "Book";
     }
 
 }

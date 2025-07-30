@@ -10,13 +10,14 @@
             <th>BOOKS</th>
         </tr>
         <tr th:each="b: ${books}">
-            <td th:text="${b.title}"></td>
-            <td th:text="${b.pageNumber}"></td>
-            <td th:text="${b.coverType}"></td>
-            <td th:text="${b.author}"></td>
-            <td th:text="${b.publisher}"></td>
-            <td th:text="${b.isbn13}"></td>
-            <td th:each="gen: ${b.genres}"></td>
+            <td th:text="${b.getKey()}"></td>
+            <td th:text="${b.getValue().getDetails().title}"></td>
+            <td th:text="${b.getValue().getDetails().pageNumber}"></td>
+            <td th:text="${b.getValue().getDetails().coverType}"></td>
+            <td th:text="${b.getValue().getDetails().author}"></td>
+            <td th:text="${b.getValue().getDetails().publisher}"></td>
+            <td th:text="${b.getValue().getDetails().isbn13}"></td>
+            <td th:each="gen: ${b.getValue().getDetails().genres}"></td>
         </tr>
     </table>
 

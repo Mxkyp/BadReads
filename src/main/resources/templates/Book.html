@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${bookDetails.title} by ${bookDetails.getAuthor()}"></title>
+</head>
+<body>
+    <table>
+    <tr>
+        <th>BOOK</th>
+    </tr>
+    <tr th:text="${bookDetails.title}"></tr>
+    <tr th:text="${bookDetails.pageNumber}"></tr>
+    <tr th:text="${bookDetails.coverType}"></tr>
+    <tr th:text="${bookDetails.author}"></tr>
+    <tr th:text="${bookDetails.publisher}"></tr>
+    <tr th:text="${bookDetails.isbn13}"></tr>
+    </table>
+</body>
+</html>

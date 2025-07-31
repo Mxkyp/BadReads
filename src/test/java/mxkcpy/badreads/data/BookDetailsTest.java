@@ -3,41 +3,46 @@ package mxkcpy.badreads.data;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Test;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import java.util.zip.DataFormatException;
 import mxkcpy.badreads.data.BookEnums.Genre;
-
-import mxkcpy.badreads.data.BookEnums.Publisher;
-import mxkcpy.badreads.data.BookEnums.CoverType;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class BookDetailsTest {
     protected static BookDetails simpleCorrectBookDetails;
 
-    private static final int pageNumber = 500;
-    private static final CoverType coverType = CoverType.HARD_COVER;
-    private static final String title = "Alice in Wonderland";
-    private static final BookDetails.Author author = new BookDetails.Author("Lewis", "Carrol");
-    private static final Publisher publisher = Publisher.MACMILLAN;
-    private static final String isbn13 = "0123456789223";
-    private static final List<Genre> genres = List.of(new Genre[]{Genre.FICTION, Genre.NOVEL});
+    private static final String isbn13 = "9781234567890";
+    private static final String isbn10 = "9781234567";
+    private static final String title = "Winds of Freedom";
+    private static final String subtitle = null;
+    private static final List<BookDetails.Author> authors = List.of(new BookDetails.Author("John", "Smith"));
+    private static final List<Genre> genres = List.of(BookEnums.Genre.HISTORICAL_FICTION, BookEnums.Genre.FICTION);
+    private static final String thumbnailUrl = "url";
+    private static final String description = "haha";
+    private static final Date publishedDate = new Date();
+    private static final int pageNumber = 5;
 
 
     protected static void setUp() throws DataFormatException {
-        simpleCorrectBookDetails = new BookDetails(pageNumber, coverType, title, author, publisher, isbn13, genres);
+        simpleCorrectBookDetails = new BookDetails(isbn13, isbn10, title, subtitle, authors, genres, thumbnailUrl, description, publishedDate, pageNumber);
     }
 
     @Test
     void testIsbnValidation() {
         Random random = new Random();
-        final String validIsbn = RandomStringUtils.random(13, 0, 0 ,false, true, null , random);
-        final String invalidIsbn = RandomStringUtils.random(random.nextInt(0,10000), 0, 0 ,false, true, null , random);
+        final String validIsbn13 = RandomStringUtils.random(13, 0, 0 ,false, true, null , random);
+        final String invalidIsbn13 = RandomStringUtils.random(random.nextInt(0,10000), 0, 0 ,false, true, null , random);
 
-        assertThrows(DataFormatException.class, () -> { new BookDetails(pageNumber, coverType, title, author, publisher, invalidIsbn, genres); });
-        assertThrows(DataFormatException.class, () -> { new BookDetails(pageNumber, coverType, title, author, publisher, invalidIsbn, genres); });
-        assertDoesNotThrow(() -> { new BookDetails(pageNumber, coverType, title, author, publisher, validIsbn, genres); });
+        assertThrows(DataFormatException.class, () -> {
+            simpleCorrectBookDetails = new BookDetails(invalidIsbn13, isbn10, title, subtitle, authors, genres, thumbnailUrl, description, publishedDate, pageNumber);
+        });
+
+        assertDoesNotThrow(() -> {
+            simpleCorrectBookDetails = new BookDetails(validIsbn13, isbn10, title, subtitle, authors, genres, thumbnailUrl, description, publishedDate, pageNumber);
+        });
     }
 
     @Test
@@ -46,8 +51,13 @@ class BookDetailsTest {
 
         final String invalidTitle = RandomStringUtils.random(101, 0, 0 , true, false, new char[]{'a', 'b', 'c'}, random);
         final String validTitle = "Narnia";
-        assertThrows(DataFormatException.class, () -> { new BookDetails(pageNumber, coverType, invalidTitle, author, publisher, isbn13, genres); } );
-        assertDoesNotThrow(() -> { new BookDetails(pageNumber, coverType, validTitle, author, publisher, isbn13, genres); });
+        assertThrows(DataFormatException.class, () -> {
+            simpleCorrectBookDetails = new BookDetails(isbn13, isbn10, invalidTitle, subtitle, authors, genres, thumbnailUrl, description, publishedDate, pageNumber);
+        });
+
+        assertDoesNotThrow(() -> {
+            simpleCorrectBookDetails = new BookDetails(isbn13, isbn10, validTitle, subtitle, authors, genres, thumbnailUrl, description, publishedDate, pageNumber);
+        });
     }
 
     @Test
@@ -58,8 +68,13 @@ class BookDetailsTest {
         final BookDetails.Author invalidAuthor = new BookDetails.Author(invalidName, "ac");
         final BookDetails.Author validAuthor = new BookDetails.Author("Sinead", "O'Connor");
 
-        assertThrows(DataFormatException.class, () -> { new BookDetails(pageNumber, coverType, title, invalidAuthor, publisher, isbn13, genres); } );
-        assertDoesNotThrow(() -> { new BookDetails(pageNumber, coverType, title, validAuthor, publisher, isbn13, genres); });
+        assertThrows(DataFormatException.class, () -> {
+            simpleCorrectBookDetails = new BookDetails(isbn13, isbn10, title, subtitle, List.of(invalidAuthor), genres, thumbnailUrl, description, publishedDate, pageNumber);
+        });
+
+        assertDoesNotThrow(() -> {
+            simpleCorrectBookDetails = new BookDetails(isbn13, isbn10, title, subtitle, List.of(validAuthor), genres, thumbnailUrl, description, publishedDate, pageNumber);
+        });
     }
 
 }

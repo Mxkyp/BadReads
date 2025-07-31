@@ -13,9 +13,7 @@
             <td th:text="${b.getKey()}"></td>
             <td th:text="${b.getValue().getDetails().title}"></td>
             <td th:text="${b.getValue().getDetails().pageNumber}"></td>
-            <td th:text="${b.getValue().getDetails().coverType}"></td>
-            <td th:text="${b.getValue().getDetails().author}"></td>
-            <td th:text="${b.getValue().getDetails().publisher}"></td>
+            <td th:text="${b.getValue().getDetails().authors}"></td>
             <td th:text="${b.getValue().getDetails().isbn13}"></td>
             <td th:each="gen: ${b.getValue().getDetails().genres}"></td>
         </tr>

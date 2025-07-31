@@ -1,36 +1,45 @@
 package mxkcpy.badreads.data;
 
-import mxkcpy.badreads.data.BookEnums.CoverType;
 import mxkcpy.badreads.data.BookEnums.Genre;
-import mxkcpy.badreads.data.BookEnums.Publisher;
-
+import java.util.Date;
 import java.util.List;
 import java.util.zip.DataFormatException;
 
 public final class BookDetails {
 
-    private final int pageNumber;
-    private final CoverType coverType;
-    private final String title;
-    private final Author author;
-    private final Publisher publisher;
     private final String isbn13;
+    private final String isbn10;
+    private final String title;
+    private final String subtitle;
+    private final List<Author> authors;
     private final List<Genre> genres;
+    private final String thumbnailUrl;
+    private final String description;
+    private final Date publishedDate;
+    private final int pageNumber;
 
-    public BookDetails(int pageNumber, CoverType coverType, String title, Author author, Publisher publisher,
-                       String isbn13, List<Genre> genres) throws DataFormatException {
+    public BookDetails(String isbn13, String isbn10, String title,
+                       String subtitle, List<Author> authors,
+                       List<Genre> genres, String thumbnailUrl, String description,
+                       Date publishedDate, int pageNumber) throws DataFormatException {
 
         DataValidator.validateTitle(title);
-        DataValidator.validateAuthor(author);
+        for (Author author : authors) {
+            DataValidator.validateAuthor(author);
+        }
         DataValidator.validateIsbn13(isbn13);
+        DataValidator.validateIsbn10(isbn10);
 
-        this.pageNumber = pageNumber;
-        this.coverType = coverType;
-        this.title = title;
-        this.author = author;
-        this.publisher = publisher;
         this.isbn13 = isbn13;
+        this.isbn10 = isbn10;
+        this.title = title;
+        this.subtitle = subtitle;
+        this.authors = authors;
         this.genres = genres;
+        this.thumbnailUrl = thumbnailUrl;
+        this.description = description;
+        this.publishedDate = publishedDate;
+        this.pageNumber = pageNumber;
     }
 
 
@@ -59,33 +68,51 @@ public final class BookDetails {
                 throw new DataFormatException("invalid Isbn");
             }
         }
-    }
 
-    public int getPageNumber() {
-        return pageNumber;
-    }
-
-    public CoverType getCoverType() {
-        return coverType;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public Author getAuthor() {
-        return author;
-    }
-
-    public Publisher getPublisher() {
-        return publisher;
+        private static void validateIsbn10(String isbn10) throws DataFormatException {
+            if (isbn10 == null || !isbn10.matches("^\\d{10}$")) {
+                throw new DataFormatException("invalid Isbn");
+            }
+        }
     }
 
     public String getIsbn13() {
         return isbn13;
     }
 
+    public String getIsbn10() {
+        return isbn10;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getSubtitle() {
+        return subtitle;
+    }
+
+    public List<Author> getAuthors() {
+        return authors;
+    }
+
     public List<Genre> getGenres() {
         return genres;
+    }
+
+    public String getThumbnailUrl() {
+        return thumbnailUrl;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public Date getPublishedDate() {
+        return publishedDate;
+    }
+
+    public int getPageNumber() {
+        return pageNumber;
     }
 }

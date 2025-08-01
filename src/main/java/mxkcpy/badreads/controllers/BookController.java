@@ -2,28 +2,30 @@ package mxkcpy.badreads.controllers;
 
 import mxkcpy.badreads.data.Book;
 import mxkcpy.badreads.data.BookDetails;
+import mxkcpy.badreads.repositories.BookRepository;
 import mxkcpy.badreads.services.BookService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
 
-@Controller
+@RestController
 public final class BookController {
     private final BookService bookService;
+    private final BookRepository bookRepository;
 
-    public BookController(BookService bookService) {
+    public BookController(BookService bookService, BookRepository bookRepository) {
         this.bookService = bookService;
+        this.bookRepository = bookRepository;
     }
 
     @GetMapping("/")
     public String home(Model model) {
-        Map<Integer, Book> books = bookService.getAll();
 
-        model.addAttribute("books", books);
-        return "BadReads";
+        return bookRepository.findById(2);
     }
 
     @GetMapping("/book")

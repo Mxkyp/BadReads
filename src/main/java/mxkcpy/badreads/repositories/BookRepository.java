@@ -7,7 +7,7 @@ import java.util.zip.DataFormatException;
 
 public interface BookRepository {
 
-    public Book findById(long id);
+    public String findById(long id);
 
     public Map<Integer, Book> getAll() throws DataFormatException;
 }

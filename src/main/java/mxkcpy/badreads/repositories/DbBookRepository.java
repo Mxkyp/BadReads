@@ -20,43 +20,14 @@ public class DbBookRepository implements BookRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
+    @Override
     public Book findById(int id) {
-        String sql = "SELECT id, (isbn).isbn13, (isbn).isbn10, title, subtitle,"
-                + " (author).name, (author).surname, thumbnail,"
-                + " description, published_year, average_rating, number_of_pages,"
-                + " ratings_count FROM public.books WHERE id = " + id;
-        List<String> categories = findAllCategories(id);
-
-       return jdbcTemplate.queryForObject(sql, new BookRowMapper(categories));
+       return jdbcTemplate.queryForObject(SqlQueries.selectBook, new BookRowMapper(jdbcTemplate), id);
     }
-
-    public List<String> findAllCategories(int id) {
-        String sql = "SELECT type from categories c"
-                + " inner join books_categories b on c.id = b.category_id and b.book_id = " + id;
-
-        RowMapper<String> categoryRowMapper = (rs, rowNum) -> {
-            return rs.getString("type");
-        };
-
-        return jdbcTemplate.query(sql, categoryRowMapper);
-    }
-
 
     @Override
-    public void getAll() throws DataFormatException {
-       /* Book book1 = new Book(new BookDetails("9781234567890", "9781234567",
-                "Winds of Freedom", null, List.of(new BookDetails.Author("John", "Smith")),
-                List.of(BookEnums.Genre.HISTORICAL_FICTION, BookEnums.Genre.FICTION), "Url", "haha", new Date(),5));
-
-        Book[] bookArr = new Book[]{book1};
-
-        books = new HashMap<>(bookArr.length);
-
-        for (Book b : bookArr) {
-            books.put(b.getId(), b);
-        }
-        return books;
+    public Book retrieveRandomBook() {
+        return jdbcTemplate.queryForObject(SqlQueries.selectRandomBook, new BookRowMapper(jdbcTemplate));
     }
-        */
-    }
+
 }

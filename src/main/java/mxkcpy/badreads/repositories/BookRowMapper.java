@@ -2,38 +2,48 @@ package mxkcpy.badreads.repositories;
 
 import mxkcpy.badreads.data.Book;
 import mxkcpy.badreads.data.BookDetails;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.zip.DataFormatException;
 
 public class BookRowMapper implements RowMapper<Book> {
-    private List<String> genres;
+    JdbcTemplate jdbcTemplate;
 
-    public BookRowMapper(List<String> genres) {
-        this.genres = genres;
+    public BookRowMapper(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
 
     @Override
     public Book mapRow(ResultSet rs, int rowNum) throws SQLException {
         try {
-            return getBook(rs, genres);
+            return getBook(rs);
         } catch (DataFormatException e) {
             throw new RuntimeException(e);
         }
     }
 
+    private List<String> findAllCategories(int bookId) {
+        RowMapper<String> categoryRowMapper = (rs, rowNum) -> {
+            return rs.getString("type");
+        };
 
-    private Book getBook(ResultSet rs, List<String> categories) throws SQLException, DataFormatException {
+        return jdbcTemplate.query(SqlQueries.selectBookCategories, categoryRowMapper, bookId);
+    }
+
+    private Book getBook(ResultSet rs) throws SQLException, DataFormatException {
         int id = rs.getInt("id");
         String isbn13 = rs.getString(2);
         String isbn10 = rs.getString(3);
         String title = rs.getString(4);
         String subtitle = rs.getString(5);
         BookDetails.Author author = new BookDetails.Author(rs.getString(6), rs.getString(7));
+        List<String> categories = findAllCategories(id);
         String thumbnail = rs.getString(8);
         String description = rs.getString(9);
         String publishedYear = rs.getString(10);

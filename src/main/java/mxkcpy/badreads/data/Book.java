@@ -14,6 +14,18 @@ public final class Book {
         return details;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+        if (!(o instanceof Book)) {
+            return false;
+        }
+        Book other = (Book) o;
+        return this.id == other.id && this.details.equals(other.details);
+    }
+
     public int getId() {
         return id;
     }

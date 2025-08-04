@@ -1,7 +1,7 @@
 package mxkcpy.badreads.data;
 
-import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.zip.DataFormatException;
 
 public final class BookDetails {
@@ -24,9 +24,9 @@ public final class BookDetails {
                        String publishedYear, double averageRating, int pageNumber) throws DataFormatException {
 
         DataValidator.validateTitle(title);
-        DataValidator.validateAuthor(author);
-        DataValidator.validateIsbn13(isbn13);
-        DataValidator.validateIsbn10(isbn10);
+        //DataValidator.validateAuthor(author);
+        //DataValidator.validateIsbn13(isbn13);
+        //DataValidator.validateIsbn10(isbn10);
 
         this.isbn13 = isbn13;
         this.isbn10 = isbn10;
@@ -108,6 +108,15 @@ public final class BookDetails {
 
     public String getPublishedDate() {
         return publishedYear;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        BookDetails that = (BookDetails) o;
+        return Double.compare(averageRating, that.averageRating) == 0 && pageNumber == that.pageNumber && Objects.equals(isbn13, that.isbn13) && Objects.equals(isbn10, that.isbn10) && Objects.equals(title, that.title) && Objects.equals(subtitle, that.subtitle) && Objects.equals(author.Name, that.author.Name) && Objects.equals(author.Surname, that.author.Surname) && Objects.equals(genres, that.genres) && Objects.equals(thumbnailUrl, that.thumbnailUrl) && Objects.equals(description, that.description) && Objects.equals(publishedYear, that.publishedYear);
     }
 
     public int getPageNumber() {

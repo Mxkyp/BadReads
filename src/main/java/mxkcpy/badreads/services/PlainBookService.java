@@ -18,11 +18,13 @@ public class PlainBookService {
     }
 
     public List<Book> getRandomBooks(int booksToGet) {
-        List<Book> books = new ArrayList<>();
+        List<Book> books = new ArrayList<>(booksToGet);
+
         for (int i = 0; i < booksToGet; i++) {
+            Book book;
             do {
-                Book book = bookRepository.retrieveRandomBook();
-            }  while (books.contains(bookRepository.retrieveRandomBook()));
+                book = bookRepository.retrieveRandomBook();
+            }  while (books.contains(book));
             books.add(bookRepository.retrieveRandomBook());
         }
         return books;

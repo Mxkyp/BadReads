@@ -21,15 +21,12 @@ public final class BookController {
 
     @GetMapping("/")
     public List<Book> home(Model model) {
-        return bookService.getRandomBooks(10);
+        return bookService.getRandomBooks(50);
     }
 
     @GetMapping("/book")
-    public String book(Model model, @RequestParam int id) {
-        Book book = bookService.getBookById(id);
-        model.addAttribute("book", book);
-        model.addAttribute("bookDetails", book.getDetails());
-        return "Book";
+    public Book book(Model model, @RequestParam int id) {
+        return bookService.getBookById(id);
     }
 
 }

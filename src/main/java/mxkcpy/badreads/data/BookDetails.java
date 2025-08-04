@@ -23,7 +23,7 @@ public final class BookDetails {
                        List<String> genres, String thumbnailUrl, String description,
                        String publishedYear, double averageRating, int pageNumber) throws DataFormatException {
 
-        DataValidator.validateTitle(title);
+        //DataValidator.validateTitle(title);
         //DataValidator.validateAuthor(author);
         //DataValidator.validateIsbn13(isbn13);
         //DataValidator.validateIsbn10(isbn10);

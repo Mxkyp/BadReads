@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -9,9 +10,10 @@ export default function GoodreadsCloneLanding() {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const router = useRouter();
 
   useEffect(() => {
-    fetch("http://localhost:8080/") // Replace with your actual endpoint
+    fetch("http://localhost:8080/")
       .then((res) => {
         if (!res.ok) throw new Error("Failed to fetch books");
         return res.json();
@@ -49,7 +51,13 @@ export default function GoodreadsCloneLanding() {
           animate={{ opacity: 1 }}
         >
           {books.map((book) => (
-            <Card key={book.id} className="bg-white shadow rounded-2xl overflow-hidden">
+            <motion.div
+              key={book.id}
+              whileHover={{ scale: 1.05 }}
+              className="cursor-pointer"
+              onClick={() => router.push(`/book?id=${book.id}`)}
+            >
+              <Card className="bg-white shadow rounded-2xl overflow-hidden">
                 <CardContent className="p-2 flex flex-col items-center">
                   <img
                     src={book.details.thumbnailUrl}
@@ -64,6 +72,7 @@ export default function GoodreadsCloneLanding() {
                   </p>
                 </CardContent>
               </Card>
+            </motion.div>
           ))}
         </motion.div>
       )}

@@ -14,6 +14,7 @@ import java.util.List;
 @RestController
 public final class BookController {
     private final PlainBookService bookService;
+    private List<Book> landingPageBooks;
 
     public BookController(PlainBookService bookService) {
         this.bookService = bookService;
@@ -21,7 +22,7 @@ public final class BookController {
 
     @GetMapping("/")
     public List<Book> home(Model model) {
-        return bookService.getRandomBooks(50);
+        return landingPageBooks == null ? landingPageBooks = bookService.getRandomBooks(50) : landingPageBooks;
     }
 
     @GetMapping("/book")

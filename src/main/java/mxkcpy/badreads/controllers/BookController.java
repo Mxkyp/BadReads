@@ -21,7 +21,7 @@ public final class BookController {
     }
 
     @GetMapping("/")
-    public List<Book> home(Model model) {
+    public Book home(Model model) {
         return bookRepository.findById(20);
     }
 

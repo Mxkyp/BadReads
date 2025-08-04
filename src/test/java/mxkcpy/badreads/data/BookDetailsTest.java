@@ -7,7 +7,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import java.util.zip.DataFormatException;
-import mxkcpy.badreads.data.BookEnums.Genre;
 
 import static org.junit.jupiter.api.Assertions.*;
 

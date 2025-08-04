@@ -2,7 +2,6 @@ package mxkcpy.badreads.repositories;
 
 import mxkcpy.badreads.data.Book;
 import mxkcpy.badreads.data.BookDetails;
-import mxkcpy.badreads.data.BookEnums;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -21,40 +20,27 @@ public class DbBookRepository implements BookRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public List<Book> findById(int id) {
-        String sql = "SELECT (isbn).isbn13, (isbn).isbn10, title, subtitle,"
-                + " authors[1].name, authors[1].surname, categories, thumbnail,"
+    public Book findById(int id) {
+        String sql = "SELECT id, (isbn).isbn13, (isbn).isbn10, title, subtitle,"
+                + " (author).name, (author).surname, thumbnail,"
                 + " description, published_year, average_rating, number_of_pages,"
                 + " ratings_count FROM public.books WHERE id = " + id;
+        List<String> categories = findAllCategories(id);
 
-        RowMapper<Book> bookRowMapper = (rs, rowNum) -> {
-            try {
-                BookDetails details = getBookDetails(rs);
-                return new Book(id, details);
-            } catch (DataFormatException e) {
-                throw new RuntimeException(e);
-            }
+       return jdbcTemplate.queryForObject(sql, new BookRowMapper(categories));
+    }
+
+    public List<String> findAllCategories(int id) {
+        String sql = "SELECT type from categories c"
+                + " inner join books_categories b on c.id = b.category_id and b.book_id = " + id;
+
+        RowMapper<String> categoryRowMapper = (rs, rowNum) -> {
+            return rs.getString("type");
         };
-       return jdbcTemplate.query(sql, bookRowMapper);
+
+        return jdbcTemplate.query(sql, categoryRowMapper);
     }
 
-    public BookDetails getBookDetails(ResultSet rs) throws SQLException, DataFormatException {
-        String isbn13 = rs.getString(1);
-        String isbn10 = rs.getString(2);
-        String title = rs.getString(3);
-        String subtitle = rs.getString(4);
-        BookDetails.Author author = new BookDetails.Author(rs.getString(5), rs.getString(6));
-        String categories = rs.getString(7);
-        String thumbnail = rs.getString(8);
-        String description = rs.getString(9);
-        String publishedYear = rs.getString(10);
-        double averageRating = rs.getDouble(11);
-        int numberOfPages = rs.getInt(12);
-
-        return new BookDetails(isbn13, isbn10, title, subtitle,
-                List.of(author), List.of(BookEnums.Genre.ROMANCE), thumbnail,
-                description, new Date(), averageRating, numberOfPages);
-    }
 
     @Override
     public void getAll() throws DataFormatException {

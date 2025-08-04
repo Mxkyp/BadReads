@@ -1,6 +1,5 @@
 package mxkcpy.badreads.data;
 
-import mxkcpy.badreads.data.BookEnums.Genre;
 import java.util.Date;
 import java.util.List;
 import java.util.zip.DataFormatException;
@@ -11,23 +10,21 @@ public final class BookDetails {
     private final String isbn10;
     private final String title;
     private final String subtitle;
-    private final List<Author> authors;
-    private final List<Genre> genres;
+    private final Author author;
+    private final List<String> genres;
     private final String thumbnailUrl;
     private final String description;
-    private final Date publishedDate;
+    private final String publishedYear;
     private final double averageRating;
     private final int pageNumber;
 
     public BookDetails(String isbn13, String isbn10, String title,
-                       String subtitle, List<Author> authors,
-                       List<Genre> genres, String thumbnailUrl, String description,
-                       Date publishedDate, double averageRating, int pageNumber) throws DataFormatException {
+                       String subtitle, Author author,
+                       List<String> genres, String thumbnailUrl, String description,
+                       String publishedYear, double averageRating, int pageNumber) throws DataFormatException {
 
         DataValidator.validateTitle(title);
-        for (Author author : authors) {
-            DataValidator.validateAuthor(author);
-        }
+        DataValidator.validateAuthor(author);
         DataValidator.validateIsbn13(isbn13);
         DataValidator.validateIsbn10(isbn10);
 
@@ -35,15 +32,14 @@ public final class BookDetails {
         this.isbn10 = isbn10;
         this.title = title;
         this.subtitle = subtitle;
-        this.authors = authors;
+        this.author = author;
         this.genres = genres;
         this.thumbnailUrl = thumbnailUrl;
         this.description = description;
-        this.publishedDate = publishedDate;
+        this.publishedYear = publishedYear;
         this.averageRating = averageRating;
         this.pageNumber = pageNumber;
     }
-
 
     public record Author(String Name, String Surname) { }
 
@@ -94,11 +90,11 @@ public final class BookDetails {
         return subtitle;
     }
 
-    public List<Author> getAuthors() {
-        return authors;
+    public Author getAuthor() {
+        return author;
     }
 
-    public List<Genre> getGenres() {
+    public List<String> getGenres() {
         return genres;
     }
 
@@ -110,8 +106,8 @@ public final class BookDetails {
         return description;
     }
 
-    public Date getPublishedDate() {
-        return publishedDate;
+    public String getPublishedDate() {
+        return publishedYear;
     }
 
     public int getPageNumber() {

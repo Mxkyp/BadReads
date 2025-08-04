@@ -8,7 +8,7 @@ import java.util.zip.DataFormatException;
 
 public interface BookRepository {
 
-    public List<Book> findById(int id);
+    public Book findById(int id);
 
     public void getAll() throws DataFormatException;
 }

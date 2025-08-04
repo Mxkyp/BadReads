@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.zip.DataFormatException;
 
 @Service
-public class PlainBookService {
+public class PlainBookService implements BookService {
     BookRepository bookRepository;
 
     public PlainBookService(BookRepository bookRepository) throws DataFormatException {
@@ -25,7 +25,7 @@ public class PlainBookService {
             do {
                 book = bookRepository.retrieveRandomBook();
             }  while (books.contains(book));
-            books.add(bookRepository.retrieveRandomBook());
+            books.add(book);
         }
         return books;
     }

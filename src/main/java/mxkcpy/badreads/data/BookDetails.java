@@ -16,12 +16,13 @@ public final class BookDetails {
     private final String thumbnailUrl;
     private final String description;
     private final Date publishedDate;
+    private final double averageRating;
     private final int pageNumber;
 
     public BookDetails(String isbn13, String isbn10, String title,
                        String subtitle, List<Author> authors,
                        List<Genre> genres, String thumbnailUrl, String description,
-                       Date publishedDate, int pageNumber) throws DataFormatException {
+                       Date publishedDate, double averageRating, int pageNumber) throws DataFormatException {
 
         DataValidator.validateTitle(title);
         for (Author author : authors) {
@@ -39,6 +40,7 @@ public final class BookDetails {
         this.thumbnailUrl = thumbnailUrl;
         this.description = description;
         this.publishedDate = publishedDate;
+        this.averageRating = averageRating;
         this.pageNumber = pageNumber;
     }
 

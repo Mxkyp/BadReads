@@ -1,16 +1,14 @@
 package mxkcpy.badreads.controllers;
 
 import mxkcpy.badreads.data.Book;
-import mxkcpy.badreads.data.BookDetails;
 import mxkcpy.badreads.repositories.BookRepository;
 import mxkcpy.badreads.services.BookService;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Map;
+import java.util.List;
 
 @RestController
 public final class BookController {
@@ -23,9 +21,8 @@ public final class BookController {
     }
 
     @GetMapping("/")
-    public String home(Model model) {
-
-        return bookRepository.findById(2);
+    public List<Book> home(Model model) {
+        return bookRepository.findById(20);
     }
 
     @GetMapping("/book")

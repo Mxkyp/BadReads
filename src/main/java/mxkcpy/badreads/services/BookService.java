@@ -15,7 +15,7 @@ public class BookService {
 
     public BookService(BookRepository bookRepository) throws DataFormatException {
         this.bookRepository = bookRepository;
-        bookMap = bookRepository.getAll();
+        //bookMap = bookRepository.getAll();
     }
 
     public Map<Integer, Book> getAll() {

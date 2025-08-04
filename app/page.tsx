@@ -1,27 +1,30 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, {useContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
+import { BooksContext } from "@/lib/BooksContext";
 
 export default function GoodreadsCloneLanding() {
-  const [books, setBooks] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { books, setBooks } = useContext(BooksContext);
+  const [loading, setLoading] = useState(books.length === 0);
   const [error, setError] = useState(null);
   const router = useRouter();
 
   useEffect(() => {
+    if (books.length > 0) return;
+
     fetch("http://localhost:8080/")
       .then((res) => {
         if (!res.ok) throw new Error("Failed to fetch books");
         return res.json();
       })
-      .then((data) => setBooks(data))
+      .then((data) => setBooks(Array.isArray(data) ? data : [data]))
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false));
-  }, []);
+  }, [books, setBooks]);
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
@@ -31,7 +34,7 @@ export default function GoodreadsCloneLanding() {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
         >
-          Welcome to BookVerse
+          Welcome to BadReads
         </motion.h1>
         <p className="text-gray-600 mt-2">Discover, rate, and review books</p>
         <div className="mt-4 flex gap-2">

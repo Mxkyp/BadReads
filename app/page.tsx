@@ -28,15 +28,6 @@ export default function GoodreadsCloneLanding() {
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
-      <div className="flex justify-end mb-4">
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          className="bg-green-700 text-white font-medium px-4 py-2 rounded-lg shadow hover:bg-green-800 transition-colors"
-          onClick={() => router.push("/login")}
-        >
-          Login
-        </motion.button>
-      </div>
 
       <header className="flex flex-col items-center justify-center mb-10">
         <motion.h1

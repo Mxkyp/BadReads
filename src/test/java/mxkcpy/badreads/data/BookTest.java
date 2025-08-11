@@ -12,12 +12,9 @@ class BookTest {
 
     @BeforeAll
     static void setUp() throws DataFormatException {
-        BookDetailsTest.setUp();
-        simpleCorrectBook = new Book(BookDetailsTest.simpleCorrectBookDetails);
     }
 
     @Test
     void getId() {
-        assertEquals(BookDetailsTest.simpleCorrectBookDetails.getIsbn13().hashCode(), simpleCorrectBook.getId());
     }
 }

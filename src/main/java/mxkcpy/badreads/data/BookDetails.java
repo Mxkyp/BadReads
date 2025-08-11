@@ -21,12 +21,7 @@ public final class BookDetails {
     public BookDetails(String isbn13, String isbn10, String title,
                        String subtitle, Author author,
                        List<String> genres, String thumbnailUrl, String description,
-                       String publishedYear, double averageRating, int pageNumber) throws DataFormatException {
-
-        //DataValidator.validateTitle(title);
-        //DataValidator.validateAuthor(author);
-        //DataValidator.validateIsbn13(isbn13);
-        //DataValidator.validateIsbn10(isbn10);
+                       String publishedYear, double averageRating, int pageNumber)  {
 
         this.isbn13 = isbn13;
         this.isbn10 = isbn10;
@@ -43,36 +38,6 @@ public final class BookDetails {
 
     public record Author(String Name, String Surname) { }
 
-    private static final class DataValidator {
-
-        DataValidator() {
-            throw new UnsupportedOperationException("DataValidator is a utility class and cannot be instantiated");
-        }
-
-        private static void validateTitle(String title) throws DataFormatException {
-            if (title == null || title.isEmpty() || title.length() > 100) {
-                throw new DataFormatException("invalid Title");
-            }
-        }
-
-        private static void validateAuthor(Author author) throws DataFormatException {
-            if (author == null || !author.Name.matches("^[A-Z][a-z]{3,15}$") || !author.Surname.matches("^([A-Z]'[A-Z][a-z]{2,15})|(A-Z][a-z]{3,15}-[A-Z][a-z]{2,15})|([A-Z][a-z]{2,15})$")) {
-                throw new DataFormatException("invalid author");
-            }
-        }
-
-        private static void validateIsbn13(String isbn13) throws DataFormatException {
-            if (isbn13 == null || !isbn13.matches("^\\d{13}$")) {
-                throw new DataFormatException("invalid Isbn");
-            }
-        }
-
-        private static void validateIsbn10(String isbn10) throws DataFormatException {
-            if (isbn10 == null || !isbn10.matches("^\\d{10}$")) {
-                throw new DataFormatException("invalid Isbn");
-            }
-        }
-    }
 
     public String getIsbn13() {
         return isbn13;

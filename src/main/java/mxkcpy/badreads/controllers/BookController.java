@@ -20,12 +20,12 @@ public final class BookController {
     }
 
     @GetMapping("/")
-    public List<Book> home(Model model) {
+    public List<Book> home() {
         return bookService.getRandomBooks(50);
     }
 
     @GetMapping("/book")
-    public Book book(Model model, @RequestParam int id) {
+    public Book book(@RequestParam int id) {
         return bookService.getBookById(id);
     }
 

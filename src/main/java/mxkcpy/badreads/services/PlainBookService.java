@@ -6,14 +6,13 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.zip.DataFormatException;
 
 @Service
 public class PlainBookService implements BookService {
     BookRepository bookRepository;
 
-    public PlainBookService(BookRepository bookRepository) throws DataFormatException {
+    public PlainBookService(BookRepository bookRepository)  {
         this.bookRepository = bookRepository;
     }
 

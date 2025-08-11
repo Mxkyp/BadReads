@@ -7,8 +7,6 @@ import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.zip.DataFormatException;
 
@@ -21,11 +19,7 @@ public class BookRowMapper implements RowMapper<Book> {
 
     @Override
     public Book mapRow(ResultSet rs, int rowNum) throws SQLException {
-        try {
-            return getBook(rs);
-        } catch (DataFormatException e) {
-            throw new RuntimeException(e);
-        }
+            return extractBookFrom(rs);
     }
 
     private List<String> findAllCategories(int bookId) {
@@ -36,7 +30,7 @@ public class BookRowMapper implements RowMapper<Book> {
         return jdbcTemplate.query(SqlQueries.selectBookCategories, categoryRowMapper, bookId);
     }
 
-    private Book getBook(ResultSet rs) throws SQLException, DataFormatException {
+    private Book extractBookFrom(ResultSet rs) throws SQLException {
         int id = rs.getInt("id");
         String isbn13 = rs.getString(2);
         String isbn10 = rs.getString(3);

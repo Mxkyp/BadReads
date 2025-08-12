@@ -1,0 +1,31 @@
+version: "3.7"
+services:
+  database:
+    image: post
+    environment:
+      POSTGRES_PASSWORD: "zq123edc"
+    networks:
+      - badreads_net
+
+  back:
+    image: br_backend
+    ports:
+      - "8080:8080"
+    networks:
+      - badreads_net
+    depends_on:
+      - database
+
+  front:
+    image: br_frontend
+    ports:
+      - "3000:3000"
+    networks:
+      - badreads_net
+    depends_on:
+      - back
+
+networks:
+  badreads_net:
+    external:
+      name: badreads_net

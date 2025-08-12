@@ -2,6 +2,7 @@ package mxkcpy.badreads.services;
 
 import mxkcpy.badreads.data.Book;
 import mxkcpy.badreads.exceptions.InvalidBookIdException;
+import mxkcpy.badreads.exceptions.NoBooksFoundException;
 import mxkcpy.badreads.repositories.BookRepository;
 import org.springframework.stereotype.Service;
 
@@ -16,13 +17,14 @@ public class PlainBookService implements BookService {
         this.bookRepository = bookRepository;
     }
 
-    public List<Book> getRandomBooks(int booksToGet) {
+    public List<Book> getRandomBooks(int booksToGet) throws NoBooksFoundException {
         List<Book> books = new ArrayList<>(booksToGet);
 
         for (int i = 0; i < booksToGet; i++) {
             Book book;
             do {
                 book = bookRepository.retrieveRandomBook();
+                if (book == null) throw new NoBooksFoundException();
             }  while (books.contains(book));
             books.add(book);
         }

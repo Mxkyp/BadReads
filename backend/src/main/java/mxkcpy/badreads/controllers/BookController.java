@@ -2,6 +2,7 @@ package mxkcpy.badreads.controllers;
 
 import mxkcpy.badreads.data.Book;
 import mxkcpy.badreads.exceptions.InvalidBookIdException;
+import mxkcpy.badreads.exceptions.NoBooksFoundException;
 import mxkcpy.badreads.services.BookService;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +21,7 @@ public final class BookController {
     }
 
     @GetMapping("/")
-    public List<Book> home() {
+    public List<Book> home() throws NoBooksFoundException {
         return bookService.getRandomBooks(50);
     }
 

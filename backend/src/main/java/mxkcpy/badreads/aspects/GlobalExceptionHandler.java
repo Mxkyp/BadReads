@@ -26,7 +26,7 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
     }
 
-    private final class ErrorResponse {
+    final class ErrorResponse {
         private final HttpStatus status;
         private final String message;
 

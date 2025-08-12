@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { BooksContext } from "@/lib/BooksContext";
+import ErrorPage from "@/components/ErrorPage";
 
 export default function GoodreadsCloneLanding() {
   const { books, setBooks } = useContext(BooksContext);
@@ -13,18 +14,21 @@ export default function GoodreadsCloneLanding() {
   const [error, setError] = useState(null);
   const router = useRouter();
 
-  useEffect(() => {
-    if (books.length > 0) return;
+useEffect(() => {
+  if (books.length > 0) return;
 
-    fetch("http://localhost:8080/")
-      .then((res) => {
-        if (!res.ok) throw new Error("Failed to fetch books");
-        return res.json();
-      })
-      .then((data) => setBooks(Array.isArray(data) ? data : [data]))
-      .catch((err) => setError(err.message))
-      .finally(() => setLoading(false));
-  }, [books, setBooks]);
+  fetch("http://localhost:8080/")
+    .then(async (res) => {
+      if (!res.ok) {
+        const errData = await res.json();
+        throw { status: errData.status, message: errData.message };
+      }
+      return res.json();
+    })
+    .then((data) => setBooks(Array.isArray(data) ? data : [data]))
+    .catch((err) => setError(err))
+    .finally(() => setLoading(false));
+}, [books, setBooks]);
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
@@ -44,11 +48,11 @@ export default function GoodreadsCloneLanding() {
         </div>
       </header>
 
-      {loading ? (
-        <p className="text-center">Loading books...</p>
-      ) : error ? (
-        <p className="text-center text-red-600">{error}</p>
-      ) : (
+        {loading ? (
+          <p className="text-center">Loading books...</p>
+        ) : error ? (
+          <ErrorPage code={error.status} message={error.message} />
+        ) : (
         <motion.div
           className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4"
           initial={{ opacity: 0 }}

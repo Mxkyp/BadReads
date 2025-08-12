@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import ErrorPage from "@/components/ErrorPage";
 
 export default function BookDetailsPage() {
   const searchParams = useSearchParams();
@@ -12,18 +13,21 @@ export default function BookDetailsPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    if (!bookId) return;
+useEffect(() => {
+  if (!bookId) return;
 
-    fetch(`http://localhost:8080/book?id=${bookId}`)
-      .then((res) => {
-        if (!res.ok) throw new Error("Failed to fetch book");
-        return res.json();
-      })
-      .then((data) => setBook(data))
-      .catch((err) => setError(err.message))
-      .finally(() => setLoading(false));
-  }, [bookId]);
+  fetch(`http://localhost:8080/book?id=${bookId}`)
+    .then(async (res) => {
+      if (!res.ok) {
+        const errData = await res.json();
+        throw { status: errData.status, message: errData.message };
+      }
+      return res.json();
+    })
+    .then((data) => setBook(data))
+    .catch((err) => setError(err))
+    .finally(() => setLoading(false));
+}, [bookId]);
 
   if (!bookId) return <p className="text-center mt-10">No book ID provided.</p>;
 
@@ -31,9 +35,9 @@ export default function BookDetailsPage() {
     <div className="min-h-screen bg-gray-100 p-6 flex flex-col items-center">
       {loading ? (
         <p>Loading book details...</p>
-      ) : error ? (
-        <p className="text-red-600">{error}</p>
-      ) : book ? (
+        ) : error ? (
+          <ErrorPage code={error.status} message={error.message} />
+        ) : book ? (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

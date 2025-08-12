@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.zip.DataFormatException;
 
 public class BookRowMapper implements RowMapper<Book> {
-    JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
 
     public BookRowMapper(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;

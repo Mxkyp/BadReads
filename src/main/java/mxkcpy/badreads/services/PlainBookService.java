@@ -1,12 +1,12 @@
 package mxkcpy.badreads.services;
 
 import mxkcpy.badreads.data.Book;
+import mxkcpy.badreads.exceptions.InvalidBookIdException;
 import mxkcpy.badreads.repositories.BookRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.zip.DataFormatException;
 
 @Service
 public class PlainBookService implements BookService {
@@ -29,7 +29,9 @@ public class PlainBookService implements BookService {
         return books;
     }
 
-    public Book getBookById(int id) {
-        return bookRepository.findById(id);
+    public Book getBookById(int id) throws InvalidBookIdException {
+        Book book = bookRepository.findById(id);
+        if (book == null) throw new InvalidBookIdException(id);
+        return book;
     }
 }

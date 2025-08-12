@@ -1,8 +1,8 @@
 package mxkcpy.badreads.controllers;
 
 import mxkcpy.badreads.data.Book;
+import mxkcpy.badreads.exceptions.InvalidBookIdException;
 import mxkcpy.badreads.services.BookService;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,7 +25,7 @@ public final class BookController {
     }
 
     @GetMapping("/book")
-    public Book book(@RequestParam int id) {
+    public Book book(@RequestParam int id) throws InvalidBookIdException {
         return bookService.getBookById(id);
     }
 

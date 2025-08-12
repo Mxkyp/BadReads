@@ -2,6 +2,8 @@ package mxkcpy.badreads.repositories;
 
 import mxkcpy.badreads.data.Book;
 import mxkcpy.badreads.data.BookDetails;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -13,21 +15,29 @@ import java.util.zip.DataFormatException;
 
 @Repository
 public class DbBookRepository implements BookRepository {
-    private Map<Integer, Book> books;
-    private JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
 
-    public DbBookRepository(JdbcTemplate jdbcTemplate) {
+    public DbBookRepository(@Lazy JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
     @Override
     public Book findById(int id) {
-       return jdbcTemplate.queryForObject(SqlQueries.selectBook, new BookRowMapper(jdbcTemplate), id);
+       try {
+           return jdbcTemplate.queryForObject(SqlQueries.selectBook, new BookRowMapper(jdbcTemplate), id);
+       } catch (DataAccessException e) {
+           return null;
+       }
     }
 
     @Override
     public Book retrieveRandomBook() {
-        return jdbcTemplate.queryForObject(SqlQueries.selectRandomBook, new BookRowMapper(jdbcTemplate));
+        try {
+            return jdbcTemplate.queryForObject(SqlQueries.selectRandomBook, new BookRowMapper(jdbcTemplate));
+        }
+        catch (DataAccessException e) {
+            return null;
+        }
     }
 
 }

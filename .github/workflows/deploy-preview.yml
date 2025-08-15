@@ -1,0 +1,27 @@
+on:
+  push:
+    branches: ["master"]
+  pull_request:
+    branches: ["master"]
+
+jobs:
+  build:
+    runs-on: self-hosted
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build the Backend image
+        run: make b
+        working-directory: backend
+
+      - name: Build the frontend image
+        run: make b
+        working-directory: frontend
+
+      - name: Build the database image
+        run: make b
+        working-directory: database
+
+      - name: deploy the app
+        run: docker compose up

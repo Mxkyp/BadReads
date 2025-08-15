@@ -24,7 +24,7 @@ jobs:
         working-directory: database
 
       - name: deploy the app
-        run: docker compose up -d && docker compose logs -f
+        run: docker compose up
 
       - name: bring it down
         run: docker compose down

@@ -6,15 +6,11 @@ services:
       POSTGRES_PASSWORD: "zq123edc"
     networks:
       - badreads_net
-
-  front:
-    image: br_frontend
-    ports:
-      - "3000:3000"
-    networks:
-      - badreads_net
-    depends_on:
-      - database
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   back:
     image: br_backend
@@ -23,10 +19,23 @@ services:
     networks:
       - badreads_net
     depends_on:
-      - database
-      - front
-    entrypoint: sh -c 'sleep 10 && /usr/src/app/start.sh '
+      database:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://back:8080"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
+  front:
+    image: br_frontend
+    ports:
+      - "3000:3000"
+    networks:
+      - badreads_net
+    depends_on:
+      back:
+        condition: service_healthy
 networks:
   badreads_net:
     external:

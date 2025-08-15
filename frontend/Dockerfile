@@ -6,7 +6,7 @@ WORKDIR /usr/src/app
 COPY . .
 EXPOSE ${PORT} 
 
-RUN apk add nodejs npm \
+RUN apk add nodejs npm curl \
   && npm install
 
 CMD ["npm", "run", "dev"]

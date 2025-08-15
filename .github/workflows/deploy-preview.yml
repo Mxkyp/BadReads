@@ -24,7 +24,7 @@ jobs:
         working-directory: database
 
       - name: deploy the app
-        run: docker compose up
+        run: ./healthCheck.sh
 
       - name: bring it down
         run: docker compose down

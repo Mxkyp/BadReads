@@ -4,7 +4,7 @@ EXPOSE 8080
 WORKDIR /usr/src/app
 
 #Dependency stage
-RUN apk add openjdk17 maven 
+RUN apk add openjdk17 maven curl
 COPY pom.xml .
 RUN mvn -B dependency:go-offline
 

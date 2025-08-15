@@ -7,6 +7,15 @@ services:
     networks:
       - badreads_net
 
+  front:
+    image: br_frontend
+    ports:
+      - "3000:3000"
+    networks:
+      - badreads_net
+    depends_on:
+      - database
+
   back:
     image: br_backend
     ports:
@@ -15,15 +24,8 @@ services:
       - badreads_net
     depends_on:
       - database
-
-  front:
-    image: br_frontend
-    ports:
-      - "3000:3000"
-    networks:
-      - badreads_net
-    depends_on:
-      - back
+      - front
+    entrypoint: sh -c 'sleep 10 && /usr/src/app/start.sh '
 
 networks:
   badreads_net:

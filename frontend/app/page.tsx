@@ -17,7 +17,7 @@ export default function GoodreadsCloneLanding() {
 useEffect(() => {
   if (books.length > 0) return;
 
-  fetch("http://localhost:8080/")
+  fetch("http://192.168.100.203:8080/")
     .then(async (res) => {
       if (!res.ok) {
         const errData = await res.json();

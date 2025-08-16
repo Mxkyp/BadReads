@@ -6,6 +6,11 @@ services:
       POSTGRES_PASSWORD: "zq123edc"
     networks:
       - badreads_net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   back:
     image: br_backend
@@ -14,7 +19,13 @@ services:
     networks:
       - badreads_net
     depends_on:
-      - database
+      database:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   front:
     image: br_frontend
@@ -23,8 +34,13 @@ services:
     networks:
       - badreads_net
     depends_on:
-      - back
-
+      back:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 networks:
   badreads_net:
     external:

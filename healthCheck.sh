@@ -1,0 +1,8 @@
+# Start containers detached
+docker compose up -d
+
+# Wait until all containers are healthy
+while [ $(docker inspect -f '{{.State.Health.Status}}' $(docker compose ps -q back)) != "healthy" ]; do
+  echo "Waiting for back..."
+  sleep 2
+done

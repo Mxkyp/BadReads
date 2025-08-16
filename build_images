@@ -1,17 +1,14 @@
 #!/usr/bin/env bash
-
-# script to build images of given services
-
 #ENV
 backend_dir=./backend/
 frontend_dir=./frontend/
 database_dir=./database/
 
-set -e
+set -e # fail on error
 
 build_image() {
-  if [[ $1 == "backend" || $1 == "frontend" || $1 == "database" ]]; then
-    dir_var="${1}_dir"
+  if [[ $1 =~ ^backend(|:[A-Za-z0-9_.-]*)$ || $1 =~ ^frontend(|:[A-Za-z0-9_.-]*)$ || $1 =~ ^database(|:[A-Za-z0-9_.-]*)$ ]]; then
+    dir_var="${1%%:*}_dir" # omit the tag if present
     docker build --tag $1 "${!dir_var}"
   else
     echo "invalid service name $1 use -h or --help for example usage"
@@ -19,12 +16,13 @@ build_image() {
   fi
 }
 
-help_function() {
+printHelpAndExit() {
   echo "-----------------------------------------"
   echo "build docker images of specified services"
+  echo "allows specifing tags"
   echo "services: backend, frontend, database"
   echo "example usage:"
-  echo "1) ./build_images backend frontend"
+  echo "1) ./build_images backend:2.1 frontend:2.3"
   echo "2) ./build_images database"
   echo "-----------------------------------------"
 }

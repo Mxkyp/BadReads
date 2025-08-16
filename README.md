@@ -1,8 +1,5 @@
 <a id="readme-top"></a>
-[![Issues][issues-shield]][issues-url]
-[![Unlicense License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
-
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
@@ -45,7 +42,6 @@
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
 
@@ -139,7 +135,7 @@ So newcomers can have a reference production ready-app as i think there are **no
 
 * [ ] external data storage ex. Google Cloud
 
-See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a full list of proposed features (and known issues).
+See the [open issues](https://github.com/Mxkyp/BadReads/issues) for a full list of proposed features (and known issues).
 
 ## Contributing
 
@@ -164,12 +160,5 @@ Your Name - [@your_twitter](https://twitter.com/your_username) - <email@example.
 
 Project Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
 
-[issues-shield]: https://img.shields.io/github/issues/othneildrew/Best-README-Template.svg?style=for-the-badge
-[issues-url]: https://github.com/Mxkyp/BadReads/issues
-[license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
-[license-url]: https://github.com/Mxkyp/BadReads/blob/backend/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/othneildrew
-[product-screenshot]: images/screenshot.png
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
 [React-url]: https://reactjs.org/

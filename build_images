@@ -7,6 +7,8 @@ backend_dir=./backend/
 frontend_dir=./frontend/
 database_dir=./database/
 
+set -e
+
 build_image() {
   if [[ $1 == "backend" || $1 == "frontend" || $1 == "database" ]]; then
     dir_var="${1}_dir"

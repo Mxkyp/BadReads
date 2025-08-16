@@ -48,8 +48,6 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
-
 The goal of this project was putting into practice my learning of Spring boot, containers, docker and infrastructure project delivery and simply having fun.
 
 As of right now I've implemented

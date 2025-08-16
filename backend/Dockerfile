@@ -10,7 +10,6 @@ RUN mvn -B dependency:go-offline
 
 #package stage
 COPY . .
-RUN chmod +x ./start.sh
 
 RUN mvn package
 

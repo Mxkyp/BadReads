@@ -1,38 +1,62 @@
 #!/usr/bin/env bash
+
 #ENV
+NC='\033[0m' # No color
+CYAN='\033[1;36m'
+RED='\033[0;31m'
+BGREEN='\033[1;32m' # Bold green
+
 backend_dir=./backend/
 frontend_dir=./frontend/
 database_dir=./database/
 
 set -e # fail on error
 
-build_image() {
-  if [[ $1 =~ ^backend(|:[A-Za-z0-9_.-]*)$ || $1 =~ ^frontend(|:[A-Za-z0-9_.-]*)$ || $1 =~ ^database(|:[A-Za-z0-9_.-]*)$ ]]; then
-    dir_var="${1%%:*}_dir" # omit the tag if present
-    docker build --tag $1 "${!dir_var}"
-  else
-    echo "invalid service name $1 use -h or --help for example usage"
+# Accepts argument number between <1,3>
+checkArgumentNumber() {
+  if [[ -z $1 || $# -gt 3 ]]; then
+    echo -e ${RED}"invalid number of arguments use -h or --help for example usage"${NC}
     exit 1
   fi
 }
 
 printHelpAndExit() {
   echo "-----------------------------------------"
-  echo "build docker images of specified services"
-  echo "allows specifing tags"
-  echo "services: backend, frontend, database"
-  echo "example usage:"
+  echo "Build docker images of specified services."
+  echo "Allows specifing tags"
+
+  echo "Services: backend, frontend, database."
+  echo "Example usage:"
   echo "1) ./build_images backend:2.1 frontend:2.3"
   echo "2) ./build_images database"
   echo "-----------------------------------------"
 }
 
-if [[ -n $1 && $# -le 3 ]]; then
-  if [[ $1 == "-h" || $1 == "--help" ]]; then
-    help_function
+# Checks if image name is correct.
+# Allow adding a tag (tag correctness checked by docker).
+buildImage() {
+  if [[ $1 =~ ^backend:? || $1 =~ ^frontend:? || $1 =~ ^database:? ]]; then
+    dir_var="${1%%:*}_dir" # omit the tag if present
+    echo -e ${CYAN}-----------------------------------------------------${NC}
+    echo -e ${CYAN}running: docker build --tag $1 "${!dir_var}"${NC}
+    docker build --tag $1 "${!dir_var}"
   else
-    for var in "$@"; do
-      build_image $var
-    done
+    echo -e ${RED}"invalid service name $1 use -h or --help for example usage"${NC}
+    exit 1
   fi
+}
+
+######## Script
+
+checkArgumentNumber $@
+if [[ $1 == "-h" || $1 == "--help" ]]; then
+  printHelpAndExit
+else
+  for var in "$@"; do
+    buildImage $var
+  done
+  echo -e ${CYAN}-----------------------------------------------------${NC}
+  echo -e ${CYAN} Done! ${NC}
 fi
+
+########

@@ -119,6 +119,7 @@ So newcomers can have a reference production ready-app as i think there are **no
 ### General
 
 * [ ] Add Changelog
+* [ ] **General refactoring**
 
 ### infrastructure
 

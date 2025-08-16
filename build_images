@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 # script to build images of given services
 
@@ -9,7 +9,8 @@ database_dir=./database/
 
 build_image() {
   if [[ $1 == "backend" || $1 == "frontend" || $1 == "database" ]]; then
-    docker build --tag $1 "$(eval echo \$${1}_dir)"
+    dir_var="${1}_dir"
+    docker build --tag $1 "${!dir_var}"
   else
     echo "invalid service name $1 use -h or --help for example usage"
     exit 1

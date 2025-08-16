@@ -36,6 +36,7 @@
       <a href="#about-the-project">About The Project</a>
       <ul>
         <li><a href="#built-with">Built With</a></li>
+        <li><a href="#Architecture">Built With</a></li>
       </ul>
     </li>
     <li>
@@ -73,7 +74,11 @@ Of course, no one template will serve all projects since your needs may be diffe
 
 Use the `BLANK_README.md` to get started.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+### Architecture
+
+<div aling="center">
+    <img src="images/archi.png" alt="Architecture" width="70" height="1000">
+</div>
 
 ### Built With
 

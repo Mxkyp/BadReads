@@ -59,13 +59,15 @@
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
-There are many great README templates available on GitHub; however, I didn't find one that really suited my needs so I created this enhanced one. I want to create a README template so amazing that it'll be the last one you ever need -- I think this is it.
+The goal of this project was putting into practice my learning of Spring boot, containers, docker and infrastructure project delivery and simply having fun.
 
-Here's why:
+As of right now I've implemented
 
-* Your time should be focused on creating something amazing. A project that solves a problem and helps others
-* You shouldn't be doing the same tasks over and over like creating a README from scratch
-* You should implement DRY principles to the rest of your life :smile:
+* *microservice based (cough cough)* infrastructure, separating the frontend, backend and database into separate entities using docker containers.
+* **REST API** using spring, which handles HTTP GET requests returning appropriate status codes.
+* Normalized locally deployed database with assosiative entities.
+* A simple react + nodejs frontend. Generating pages based on given data.
+* A github actions pipeline, building and deploying the app to my homelab, allowing me to preview it over LAN.
 
 Of course, no one template will serve all projects since your needs may be different. So I'll be adding more in the near future. You may also suggest changes by forking this repo and creating a pull request or opening an issue. Thanks to all the people have contributed to expanding this template!
 
@@ -106,7 +108,7 @@ This is an example of how to list things you need to use the software and how to
 
 ### Installation
 
-_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
+*Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services.*
 
 1. Get a free API Key at [https://example.com](https://example.com)
 2. Clone the repo
@@ -141,7 +143,7 @@ _Below is an example of how you can instruct your audience on installing and set
 
 Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+*For more examples, please refer to the [Documentation](https://example.com)*
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

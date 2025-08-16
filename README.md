@@ -110,13 +110,10 @@ You can now see the website at localhost:3000
   
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+The project is to be used for educational purposes. \
+It's very early in development, but as it grows i will try to make it as pristine example of a fullstack app as i can. \
+So newcomers can have a reference production ready-app as i think there are **not so many spring-based examples**.
 
-*For more examples, please refer to the [Documentation](https://example.com)*
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-<!-- ROADMAP -->
 ## Roadmap
 
 * [x] Add Changelog

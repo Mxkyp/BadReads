@@ -116,14 +116,19 @@ So newcomers can have a reference production ready-app as i think there are **no
 
 ## Roadmap
 
-* [x] Add Changelog
-* [x] Add back to top links
-* [ ] Add Additional Templates w/ Examples
-* [ ] Add "components" document to easily copy & paste sections of the readme
-* [ ] Multi-language Support
-  * [ ] Chinese
-  * [ ] Spanish
+### General
 
+* [ ] Add Changelog
+* [ ]
+
+### infrastructure
+* [ ] Proper secret handling
+
+### Backend
+
+* [ ] Add Spring security, OAuth2
+* [ ] Add User, comment services
+* []
 See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>

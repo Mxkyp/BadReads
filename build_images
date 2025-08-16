@@ -1,0 +1,37 @@
+#!/bin/sh
+
+# script to build images of given services
+
+#ENV
+backend_dir=./backend/
+frontend_dir=./frontend/
+database_dir=./database/
+
+build_image() {
+  if [[ $1 == "backend" || $1 == "frontend" || $1 == "database" ]]; then
+    docker build --tag $1 "$(eval echo \$${1}_dir)"
+  else
+    echo "invalid service name $1 use -h or --help for example usage"
+    exit 1
+  fi
+}
+
+help_function() {
+  echo "-----------------------------------------"
+  echo "build docker images of specified services"
+  echo "services: backend, frontend, database"
+  echo "example usage:"
+  echo "1) ./build_images backend frontend"
+  echo "2) ./build_images database"
+  echo "-----------------------------------------"
+}
+
+if [[ -n $1 && $# -le 3 ]]; then
+  if [[ $1 == "-h" || $1 == "--help" ]]; then
+    help_function
+  else
+    for var in "$@"; do
+      build_image $var
+    done
+  fi
+fi

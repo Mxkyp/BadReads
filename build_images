@@ -10,10 +10,12 @@ backend_dir=./backend/
 frontend_dir=./frontend/
 database_dir=./database/
 
-set -e # fail on error
+set -o errexit  # abort on nonzero exitstatus
+set -o nounset  # abort on unbound variable
+set -o pipefail # don't hide errors within pipes
 
 # Accepts argument number between <1,3>
-checkArgumentNumber() {
+validateArgumentNumber() {
   if [[ -z $1 || $# -gt 3 ]]; then
     echo -e ${RED}"invalid number of arguments use -h or --help for example usage"${NC}
     exit 1
@@ -32,31 +34,32 @@ printHelpAndExit() {
   echo "-----------------------------------------"
 }
 
-# Checks if image name is correct.
-# Allow adding a tag (tag correctness checked by docker).
+#validate image name, allow any tag
+validateImageName() {
+  [[ $1 =~ ^backend:? || $1 =~ ^frontend:? || $1 =~ ^database:? ]]
+}
+
 buildImage() {
-  if [[ $1 =~ ^backend:? || $1 =~ ^frontend:? || $1 =~ ^database:? ]]; then
-    dir_var="${1%%:*}_dir" # omit the tag if present
-    echo -e ${CYAN}-----------------------------------------------------${NC}
-    echo -e ${CYAN}running: docker build --tag $1 "${!dir_var}"${NC}
-    docker build --tag $1 "${!dir_var}"
-  else
-    echo -e ${RED}"invalid service name $1 use -h or --help for example usage"${NC}
-    exit 1
-  fi
+  dir_var="${1%%:*}_dir" # omit the tag if present
+  echo -e ${CYAN}-----------------------------------------------------${NC}
+  echo -e ${CYAN}running: docker build --tag $1 "${!dir_var}"${NC}
+  docker build --tag $1 "${!dir_var}"
 }
 
 ######## Script
-
-checkArgumentNumber $@
+validateArgumentNumber $@
 if [[ $1 == "-h" || $1 == "--help" ]]; then
   printHelpAndExit
 else
-  for var in "$@"; do
-    buildImage $var
+  for name in "$@"; do
+    if validateImageName $name; then
+      buildImage $name
+    else
+      echo -e ${RED}"invalid service name $name use -h or --help for example usage"${NC}
+      exit 1
+    fi
   done
   echo -e ${CYAN}-----------------------------------------------------${NC}
   echo -e ${CYAN} Done! ${NC}
 fi
-
 ########

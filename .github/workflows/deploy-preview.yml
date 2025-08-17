@@ -11,20 +11,21 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: bring it down if up
+        run: docker compose down
+
       - name: Build the Backend image
-        run: make b
-        working-directory: backend
+        run: docker compose build br_backend
 
       - name: Build the frontend image
-        run: make b
-        working-directory: frontend
+        run: docker compose build br_frontend
 
       - name: Build the database image
-        run: make b
-        working-directory: database
+        run: docker compose build br_database
 
-      - name: deploy the app
-        run: ./healthCheck.sh
+      - name: deploy the app locally
+        run: docker compose up -d && docker compose logs --follow
 
-      - name: bring it down
-        run: docker compose down
+      - name: check services health
+        run: ./check_health.sh -t 30 database backend frontend
+        working-directory: scripts

@@ -10,7 +10,6 @@ RUN mvn -B dependency:go-offline
 
 #package stage
 COPY . .
-
 RUN mvn package
 
 ENTRYPOINT [ "java", "-jar", "/usr/src/app/target/BadReads-0.0.1-SNAPSHOT.jar" ]

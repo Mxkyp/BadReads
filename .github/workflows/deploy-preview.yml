@@ -15,13 +15,13 @@ jobs:
         run: docker compose down
 
       - name: Build the Backend image
-        run: docker compose build br_backend
+        run: docker compose build backend
 
       - name: Build the frontend image
-        run: docker compose build br_frontend
+        run: docker compose build frontend
 
       - name: Build the database image
-        run: docker compose build br_database
+        run: docker compose build database
 
       - name: deploy the app locally
         run: docker compose up -d && docker compose logs --follow

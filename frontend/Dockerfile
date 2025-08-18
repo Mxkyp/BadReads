@@ -1,14 +1,23 @@
-FROM alpine:3.22.1
+# Use official Node LTS image (includes npm)
+FROM node:20-alpine
 
-ENV PORT="3000"
-
+# Set working directory
 WORKDIR /usr/src/app
+
+# Copy package files first for caching
+COPY package.json package-lock.json* ./
+
+# Install dependencies
+RUN npm install
+
+# Copy the rest of the source code
 COPY . .
-EXPOSE ${PORT} 
 
-RUN apk add nodejs npm curl \
-  && npm install
+# Set environment variable for Vite
+ENV PORT=3000
 
+# Expose port
+EXPOSE ${PORT}
+
+# Run Vite dev server
 CMD ["npm", "run", "dev"]
-
-

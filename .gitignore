@@ -34,21 +34,21 @@ build/
 .vscode/
 
 # dependencies
-/frontend_vite/node_modules
-/frontend_vite/.pnp
-/frontend_vite/pnp.*
-/frontend_vite/.yarn/*
-!/frontend_vite/.yarn/patches
-!/frontend_vite/.yarn/plugins
-!/frontend_vite/.yarn/releases
-!/frontend_vite/.yarn/versions
+/frontend/node_modules
+/frontend/.pnp
+/frontend/pnp.*
+/frontend/.yarn/*
+!/frontend/.yarn/patches
+!/frontend/.yarn/plugins
+!/frontend/.yarn/releases
+!/frontend/.yarn/versions
 
 # testing
-/frontend_vite/coverage
+/frontend/coverage
 
 # Vite + build
-/frontend_vite/dist
-/frontend_vite/.vite
+/frontend/dist
+/frontend/.vite
 
 # production
 /build
@@ -64,15 +64,15 @@ yarn-error.log*
 .pnpm-debug.log*
 
 # env files
-/frontend_vite/.env*
-/frontend_vite/secrets.yaml
+/frontend/.env*
+/frontend/secrets.yaml
 
 # Vercel
 .vercel
 
 # TypeScript
-/frontend_vite/tsconfig.tsbuildinfo
-/frontend_vite/next-env.d.ts
+/frontend/tsconfig.tsbuildinfo
+/frontend/next-env.d.ts
 
 # Optional Vite cache
-/frontend_vite/node_modules/.vite
+/frontend/node_modules/.vite

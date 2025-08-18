@@ -27,5 +27,5 @@ jobs:
         run: docker compose up -d && docker compose logs --until 1m
 
       - name: check services health
-        run: ./check_health.sh -t 30 database backend frontend
+        run: ./check_health.sh -t 20 database backend frontend
         working-directory: scripts

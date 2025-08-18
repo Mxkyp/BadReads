@@ -1,38 +1,39 @@
-"use client";
-import React, {useContext, useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import React, { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Card, CardContent } from "./components/ui/card";
+import { Input } from "./components/ui/input";
+import { Button } from "./components/ui/button";
 import { motion } from "framer-motion";
-import { BooksContext } from "@/lib/BooksContext";
-import ErrorPage from "@/components/ErrorPage";
+import { BooksContext } from "./lib/BooksContext";
+import ErrorPage from "./components/ErrorPage";
 
 export default function GoodreadsCloneLanding() {
   const { books, setBooks } = useContext(BooksContext);
   const [loading, setLoading] = useState(books.length === 0);
   const [error, setError] = useState(null);
-  const router = useRouter();
+  const navigate = useNavigate();
 
-useEffect(() => {
-  if (books.length > 0) return;
+  useEffect(() => {
+    if (books.length > 0) return;
 
-  fetch("http://192.168.100.203:8080/")
-    .then(async (res) => {
-      if (!res.ok) {
-        const errData = await res.json();
-        throw { status: errData.status, message: errData.message };
-      }
-      return res.json();
-    })
-    .then((data) => setBooks(Array.isArray(data) ? data : [data]))
-    .catch((err) => setError(err))
-    .finally(() => setLoading(false));
-}, [books, setBooks]);
+    fetch("http://localhost:8080/")
+      .then(async (res) => {
+        if (!res.ok) {
+          const errData = await res.json();
+          throw { status: errData.status, message: errData.message };
+        }
+        return res.json();
+      })
+      .then((data) => setBooks(Array.isArray(data) ? data : [data]))
+      .catch((err) => setError(err))
+      .finally(() => setLoading(false));
+  }, []);
 
+  useEffect(() => {
+    console.log("Updated books:", books);
+  }, [books]);
   return (
     <div className="min-h-screen bg-gray-100 p-6">
-
       <header className="flex flex-col items-center justify-center mb-10">
         <motion.h1
           className="text-4xl font-bold text-green-800"
@@ -48,22 +49,22 @@ useEffect(() => {
         </div>
       </header>
 
-        {loading ? (
-          <p className="text-center">Loading books...</p>
-        ) : error ? (
-          <ErrorPage code={error.status} message={error.message} />
-        ) : (
+      {loading ? (
+        <p className="text-center">Loading books...</p>
+      ) : error ? (
+        <ErrorPage code={error.status} message={error.message} />
+      ) : (
         <motion.div
           className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
         >
-          {books.map((book) => (
+          { books.map((book) => (
             <motion.div
               key={book.id}
               whileHover={{ scale: 1.05 }}
               className="cursor-pointer"
-              onClick={() => router.push(`/book?id=${book.id}`)}
+              onClick={() => navigate(`/book?id=${book.id}`)}
             >
               <Card className="bg-white shadow rounded-2xl overflow-hidden">
                 <CardContent className="p-2 flex flex-col items-center">

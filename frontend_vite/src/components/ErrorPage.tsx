@@ -1,10 +1,8 @@
-"use client";
-
 import React from "react";
 import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
+import { Button } from "./ui/button";
 
-export default function ErrorPage({ code, message }) {
+export default function ErrorPage({ code, message }: { code: number; message: string }) {
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center text-center p-6">
       <motion.h1
@@ -19,7 +17,7 @@ export default function ErrorPage({ code, message }) {
       <p className="text-sm text-gray-500 mb-8">
         Even our books are confused right now 📚🤯
       </p>
-      <Button onClick={() => window.location.href = "/"}>🏠 Back to Home</Button>
+      <Button onClick={() => (window.location.href = "/")}>🏠 Back to Home</Button>
     </div>
   );
 }

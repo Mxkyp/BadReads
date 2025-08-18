@@ -1,3 +1,4 @@
+# Project-specific
 HELP.md
 target/
 .mvn/wrapper/maven-wrapper.jar
@@ -31,24 +32,23 @@ build/
 
 ### VS Code ###
 .vscode/
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-/node_modules
-/.pnp
-.pnp.*
-.yarn/*
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/versions
+/frontend_vite/node_modules
+/frontend_vite/.pnp
+/frontend_vite/pnp.*
+/frontend_vite/.yarn/*
+!/frontend_vite/.yarn/patches
+!/frontend_vite/.yarn/plugins
+!/frontend_vite/.yarn/releases
+!/frontend_vite/.yarn/versions
 
 # testing
-/coverage
+/frontend_vite/coverage
 
-# next.js
-/.next/
-/out/
+# Vite + build
+/frontend_vite/dist
+/frontend_vite/.vite
 
 # production
 /build
@@ -63,13 +63,16 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
-.env*
-secrets.yaml
+# env files
+/frontend_vite/.env*
+/frontend_vite/secrets.yaml
 
-# vercel
+# Vercel
 .vercel
 
-# typescript
-*.tsbuildinfo
-next-env.d.ts
+# TypeScript
+/frontend_vite/tsconfig.tsbuildinfo
+/frontend_vite/next-env.d.ts
+
+# Optional Vite cache
+/frontend_vite/node_modules/.vite

@@ -1,10 +1,6 @@
 on:
   release:
-    types: [prereleased]
-  push:
-    branches: ["master"]
-  pull_request:
-    branches: ["master"]
+    types: [released]
 
 jobs:
   build:
@@ -29,8 +25,6 @@ jobs:
     needs: build
     runs-on: self-hosted
     steps:
-      - name: TEST remove the env
-        run: rm .env
       - name: deploy locally
         env:
           SUPER_SECRET_PASSWORD: ${{ secrets.DB_PASSWORD }}

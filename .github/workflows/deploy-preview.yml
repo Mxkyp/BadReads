@@ -23,8 +23,14 @@ jobs:
       - name: Build the database image
         run: docker compose build database
 
-      - name: deploy the app locally
+  deploy-localy:
+    needs: build
+    runs-on: self-hosted
+    steps:
+      - name: deploy locally
         run: docker compose up -d && docker compose logs --until 1m
+        env:
+          SUPER_SECRET_PASSWORD: ${{ secrets.DB_PASSWORD }}
 
       - name: check services health
         run: ./check_health.sh -t 20 database backend frontend

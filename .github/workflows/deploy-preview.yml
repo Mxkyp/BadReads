@@ -27,8 +27,10 @@ jobs:
     needs: build
     runs-on: self-hosted
     steps:
-      - name: deploy locally
-        run: docker compose up -d && timeout 60s docker compose logs -f
+      - name: deploy locally and save logs
+        run: |
+          docker compose up -d
+          timeout 60s docker compose logs -f > run_log.txt 2>&1
         env:
           SUPER_SECRET_PASSWORD: ${{ secrets.DB_PASSWORD }}
 

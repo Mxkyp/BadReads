@@ -27,9 +27,11 @@ jobs:
     needs: build
     runs-on: self-hosted
     steps:
-      - name: deploy locally
+      - name: remove default env and set the value
+        run: rm .env
         env:
           SUPER_SECRET_PASSWORD: ${{ secrets.DB_PASSWORD }}
+      - name: deploy locally
         run: docker compose up -d
 
       - name: check services health

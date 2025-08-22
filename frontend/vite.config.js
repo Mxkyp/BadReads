@@ -6,6 +6,6 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
   server: {
       port: 3000,  // change the dev server port here
-      host: true   // allows access from outside the container
+      host: true // allows access from outside the container
     }
 })

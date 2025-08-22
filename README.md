@@ -117,7 +117,7 @@ So newcomers can have a reference production ready-app as i think there are **no
 
 ### infrastructure
 
-* [ ] Proper secret handling
+* [ ] Proper secret handling (HashiCorpVault)
 
 ### Backend
 
@@ -154,7 +154,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@your_twitter](https://twitter.com/your_username) - <email@example.com>
+Your Name - [@your_twitter](https://twitter.com/your_username) - <mpawlos@example.com>
 
 Project Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
 

@@ -15,7 +15,7 @@ export default function BookDetailsPage() {
   useEffect(() => {
     if (!bookId) return;
 
-    fetch(`http://localhost:8080/book?id=${bookId}`)
+    fetch(`/api/book?id=${bookId}`)
       .then(async (res) => {
         if (!res.ok) {
           const errData = await res.json();

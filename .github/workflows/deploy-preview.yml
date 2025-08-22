@@ -25,6 +25,9 @@ jobs:
       - name: Build the database image
         run: docker compose build database
 
+      - name: Build the server image
+        run: docker compose build server
+
   deploy-localy:
     needs: build
     runs-on: self-hosted

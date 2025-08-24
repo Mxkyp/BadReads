@@ -41,6 +41,8 @@ services:
       context: ./frontend/
     networks:
       - badreads_net
+    environment:
+      VITE_SERVER_NAME: ${SERVER_NAME}
     depends_on:
       backend:
         condition: service_healthy
@@ -54,15 +56,19 @@ services:
     image: nginx-server
     build:
       context: ./server/
+    volumes:
+      - ${SSL_CERT_VOLUME}
+      - ${SSL_KEY_VOLUME}
     ports:
-      - "127.0.0.1:80:80"
-      - "127.0.0.1:443:443"
+      - ${SERVER_PORT_EXPOSED1}
+      - ${SERVER_PORT_EXPOSED2}
     networks:
       - badreads_net
     environment:
       NGINX_ENVSUBST_OUTPUT_DIR: /etc/nginx
       SSL_CERTIFICATE: ${SSL_CERTIFICATE}
       SSL_KEY: ${SSL_KEY}
+      SERVER_NAME: ${SERVER_NAME}
     depends_on:
       frontend:
         condition: service_healthy

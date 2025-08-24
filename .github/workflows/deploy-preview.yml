@@ -19,9 +19,6 @@ jobs:
       - name: Build the Backend image
         run: docker compose build backend
 
-      - name: Build the frontend image
-        run: docker compose build frontend
-
       - name: Build the database image
         run: docker compose build database
 
@@ -36,5 +33,5 @@ jobs:
         run: docker compose up -d
 
       - name: check services health
-        run: ./check_health.sh -t 20 database backend frontend
+        run: ./check_health.sh -t 20 database backend
         working-directory: scripts

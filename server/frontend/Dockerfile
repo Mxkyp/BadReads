@@ -14,4 +14,8 @@ ENV PORT=3000
 
 EXPOSE ${PORT}
 
-CMD ["npm", "run", "dev"]
+ARG SERVER_NAME=localhost
+
+RUN echo VITE_SERVER_NAME=${SERVER_NAME} > .env.production
+
+CMD ["npm", "run", "build"]

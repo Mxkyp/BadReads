@@ -18,8 +18,7 @@ jobs:
         run: docker compose build database
 
       - name: Build the server image
-        run: |
-          docker compose build server
+        run: docker compose build server
 
   deploy-production-locally:
     needs: build-production

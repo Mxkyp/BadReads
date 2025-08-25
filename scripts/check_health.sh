@@ -1,4 +1,9 @@
 #!/bin/bash
+
+########################
+################# Defs
+########################
+
 NC='\033[0m' # No color
 CYAN='\033[1;36m'
 RED='\033[0;31m'
@@ -42,6 +47,10 @@ service_exists() {
   [ -n "$(docker compose ps -q $1)" ]
 }
 
+########################
+################# Script
+########################
+
 if [[ $1 == "-h" || $1 == "--help" ]]; then
   print_help_and_exit
 fi
@@ -61,7 +70,7 @@ done
 if [[ $timeout =~ ^[1-9][0-9]{0,1}$ ]]; then
   echo "Sleeping for ${timeout}"
   sleep $timeout
-  shift
+  shift # if sleep specified, shift pass -t and time args
   shift
 elif [[ -n "$timeout" ]]; then
   err "invalid -t (timeout) argument: $timeout, use -h or --help for example usage"

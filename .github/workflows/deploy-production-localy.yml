@@ -21,7 +21,7 @@ jobs:
         run: |
           docker compose build server
 
-  deploy-production:
+  deploy-production-locally:
     needs: build-production
     runs-on: [self-hosted, production]
     steps:

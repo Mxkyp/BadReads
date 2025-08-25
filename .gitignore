@@ -19,7 +19,8 @@ target/
 *.iws
 *.iml
 *.ipr
-
+*.drawio
+*.drawio.bkp
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/

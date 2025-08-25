@@ -8,8 +8,6 @@ RUN npm install
 
 COPY ./frontend/ .
 
-RUN ls
-
 ARG SERVER_NAME=localhost
 
 RUN echo VITE_SERVER_NAME=${SERVER_NAME} > .env.production

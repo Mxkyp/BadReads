@@ -1,13 +1,10 @@
 on:
-  push:
-    branches: ["master"]
-  pull_request:
-    branches: ["master"]
+  release:
+    types: [prereleased]
 
 jobs:
-  build:
-    runs-on: self-hosted
-
+  build-production-locally:
+    runs-on: [self-hosted, production]
     steps:
       - uses: actions/checkout@v4
 
@@ -21,13 +18,14 @@ jobs:
         run: docker compose build database
 
       - name: Build the server image
-        run: docker compose build server
+        run: |
+          docker compose build server
 
-  deploy-localy:
-    needs: build
-    runs-on: self-hosted
+  deploy-production:
+    needs: build-production
+    runs-on: [self-hosted, production]
     steps:
-      - name: deploy locally
+      - name: deploy to production locally
         run: docker compose up -d
 
       - name: check services health

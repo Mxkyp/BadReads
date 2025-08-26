@@ -48,7 +48,7 @@
 ## About The Project
 
 **BadReads** is a **self-hosted fullstack microservice** based book-recommendation app. \
-<u>**GoodReads but better** (That's the plan).</u>
+<u>**GoodReads but better/Pinterest for books with better recommendations** (That's the plan).</u>
 
 
 ### Purpose
@@ -125,6 +125,7 @@ So newcomers can have a reference production ready-app as i think there are **no
 * [ ] Tests in pipeline
 * [ ] Monitoring
 * [ ] Limit resource usage
+* [ ] Rollbacks, seamless delivery
 
 ### Backend
 
@@ -135,7 +136,8 @@ So newcomers can have a reference production ready-app as i think there are **no
 ### Frontend
 
 * [ ] Simple searchbar with logo
-* [ ] full, Dedicated
+* [ ] Simplify the file structure
+
 ### Database
 
 * [ ] external data storage ex. Google Cloud

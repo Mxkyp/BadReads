@@ -3,16 +3,15 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-    <img src="images/logo.png" alt="Logo" width="300" height="200">
-
-  <h3 align="center">BadReads</h3>
+    <img src="images/logo.png" height="250" width="auto" >
 
   <p align="center">
-    A Spring-built goodReads clone
+    <br />
+    An open-source book recommendation site.
     <br />
     <br />
     <br />
-    <a href="https://github.com/Mxkyp/BadReads">View Demo</a>
+    <a href="https://badreads.mpawlos.com/">View On the web</a>
     &middot;
     <a href="https://github.com/Mxkyp/BadReads/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
     &middot;
@@ -28,7 +27,7 @@
       <a href="#about-the-project">About The Project</a>
       <ul>
         <li><a href="#built-with">Built With</a></li>
-        <li><a href="#Architecture">Built With</a></li>
+        <li><a href="#Architecture">Architecture</a></li>
       </ul>
     </li>
     <li>
@@ -48,26 +47,35 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-The goal of this project was putting into practice my learning of Spring boot, containers, docker and infrastructure project delivery and simply having fun.
+**BadReads** is a **self-hosted fullstack microservice** based book-recommendation app. \
+<u>**GoodReads but better** (That's the plan).</u>
 
-As of right now I've implemented
 
-* *microservice based (cough cough)* infrastructure, separating the frontend, backend and database into separate entities using docker containers.
-* **REST API** using spring, which handles HTTP GET requests returning appropriate status codes.
-* Normalized locally deployed database with assosiative entities.
-* A simple react + nodejs frontend. Generating pages based on given data.
-* A github actions pipeline, building and deploying the app to my homelab, allowing me to preview it over LAN.
+### Purpose
+The purpose of this project is learning:
+1. Kubernetes and Docker.
+2. Self-hosting, administrator duties.
+3. Developing great REST API's.
+4. Web/System/container security.
+5. Building fully functional web-services.
+6. Infrastructure/IaC.
+7. Making production grade SaaS products.
+8. Scalable application architecture.
+
+And provide a **easily reproducible, complete**  full-stack application. \
+For others trying to learn how to build applications for the web.
 
 ### Architecture
 
 <div align="center">
-    <img src="images/archi.png" alt="Architecture" width="700" height="1000">
+    <img src="images/archi.png" alt="Architecture" width="700" height="1100">
 </div>
 
 ### Built With
 
  [![React][React.js]][React-url]
  ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
+[![Vite](https://img.shields.io/badge/Vite-646CFF?logo=vite&logoColor=fff)](#)
 ![Spring](https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white)
 ![Nginx](https://img.shields.io/badge/nginx-%23009639.svg?style=for-the-badge&logo=nginx&logoColor=white)
 ![GitHub Actions](https://img.shields.io/badge/github%20actions-%232671E5.svg?style=for-the-badge&logo=githubactions&logoColor=white)
@@ -76,18 +84,12 @@ As of right now I've implemented
 
 ## Getting Started
 
+**Make sure ports 80 and 443 are free.**
+
 Clone the repository:
 
-  ```sh
-     git clone https://github.com/Mxkyp/BadReads.git
-     cd BadReads
-  ```
-
-Build all the required images:
-
-  ```sh
-      chmod +x buildImages.sh 
-      ./buildImages.sh
+  ```bash
+     git clone https://github.com/Mxkyp/BadReads.git && cd BadReads
   ```
 
 Run it:
@@ -96,11 +98,12 @@ Run it:
       docker compose up 
   ```
 
-You can now see the website at localhost:3000
+You can now see the website at localhost
 
 ### Prerequisites
 
-  Basically git and docker.
+  - git 
+  - docker
   
 ## Usage
 
@@ -114,10 +117,14 @@ So newcomers can have a reference production ready-app as i think there are **no
 
 * [ ] Add Changelog
 * [ ] **General refactoring**
+* [ ] Website logo and info
 
 ### infrastructure
 
 * [ ] Proper secret handling (HashiCorpVault)
+* [ ] Tests in pipeline
+* [ ] Monitoring
+* [ ] Limit resource usage
 
 ### Backend
 
@@ -127,11 +134,12 @@ So newcomers can have a reference production ready-app as i think there are **no
 
 ### Frontend
 
-* [ ] goodReads 1:1 but better
-
+* [ ] Simple searchbar with logo
+* [ ] full, Dedicated
 ### Database
 
 * [ ] external data storage ex. Google Cloud
+* [ ] **find a better book data set**
 
 See the [open issues](https://github.com/Mxkyp/BadReads/issues) for a full list of proposed features (and known issues).
 
@@ -154,9 +162,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@your_twitter](https://twitter.com/your_username) - <mpawlos@example.com>
-
-Project Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
+Mikołaj Pawłoś - [Linkedin](www.linkedin.com/in/mikołaj-pawłoś-7a4715380)
 
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
 [React-url]: https://reactjs.org/

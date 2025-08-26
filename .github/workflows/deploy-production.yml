@@ -1,45 +1,18 @@
 on:
-  release:
-    types: [released]
+  push:
+    branches: ["master"]
 
 jobs:
-  build:
-    runs-on: self-hosted
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: bring it down if up
-        run: docker compose down
-
-      - name: Build the Backend image
-        run: docker compose build backend
-
-      - name: Build the database image
-        run: docker compose build database
-
-      - name: Build the server image
-        run: docker compose build server
-
-  deploy-localy:
-    needs: build
-    runs-on: self-hosted
-    steps:
-      - name: deploy locally
-        run: docker compose up -d
-
-      - name: check services health
-        run: ./check_health.sh -t 20 database backend
-        working-directory: scripts
-
   build-production:
-    needs: deploy-localy
     runs-on: [self-hosted, production]
     steps:
       - uses: actions/checkout@v4
 
       - name: bring it down if up
         run: docker compose down
+
+      - name: remove the defaults to prevent accidental fills.
+        run: rm .env
 
       - name: Build the Backend image
         run: docker compose build backend

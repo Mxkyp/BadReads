@@ -21,10 +21,6 @@ jobs:
       - name: Build the server image
         run: docker compose build server
 
-  deploy-localy:
-    needs: build
-    runs-on: self-hosted
-    steps:
       - name: deploy locally
         run: docker compose up -d
 

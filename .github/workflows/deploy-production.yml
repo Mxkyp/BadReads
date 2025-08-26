@@ -3,7 +3,7 @@ on:
     branches: ["master"]
 
 jobs:
-  build-production:
+  deploy-production:
     runs-on: [self-hosted, production]
     steps:
       - uses: actions/checkout@v4
@@ -12,38 +12,33 @@ jobs:
         run: docker compose down
 
       - name: remove the defaults to prevent accidental fills.
-        run: rm .env
+        run: rm -f .env
+
+      - name: Write secrets to .env
+        run: |
+          cat > .env <<'EOF'
+          SUPER_SECRET_PASSWORD=${{ secrets.SUPER_SECRET_PASSWORD }}
+          SERVER_PORT_EXPOSED1=${{ secrets.SERVER_PORT_EXPOSED1 }}
+          SERVER_PORT_EXPOSED2=${{ secrets.SERVER_PORT_EXPOSED2 }}
+          SSL_CERTIFICATE=${{ secrets.SSL_CERTIFICATE }}
+          SSL_KEY=${{ secrets.SSL_KEY }}
+          SERVER_NAME=${{ secrets.SERVER_NAME }}
+          SSL_CERT_VOLUME=${{ secrets.SSL_CERT_VOLUME }}
+          SSL_KEY_VOLUME=${{ secrets.SSL_KEY_VOLUME }}
+          EOF
 
       - name: Build the images
         run: |
           docker compose build \
             --build-arg SERVER_NAME=${{ secrets.SERVER_NAME }} \
-        env:
-          SUPER_SECRET_PASSWORD: ${{ secrets.DB_PASSWORD }}
-          SSL_CERTIFICATE: ${{ secrets.SSL_CERTIFICATE }}
-          SSL_KEY: ${{ secrets.SSL_KEY }}
-          SSL_CERT_VOLUME: ${{ secrets.SSL_CERT_VOLUME }}
-          SSL_KEY_VOLUME: ${{ secrets.SSL_KEY_VOLUME }}
-          SERVER_PORT_EXPOSED1: ${{ secrets.SERVER_PORT_EXPOSED1 }}
-          SERVER_PORT_EXPOSED2: ${{ secrets.SERVER_PORT_EXPOSED2 }}
-          SERVER_NAME: ${{ secrets.SERVER_NAME }}
 
-  deploy-production:
-    needs: build-production
-    runs-on: [self-hosted, production]
-    steps:
       - name: deploy to production
-        env:
-          SUPER_SECRET_PASSWORD: ${{ secrets.DB_PASSWORD }}
-          SSL_CERTIFICATE: ${{ secrets.SSL_CERTIFICATE }}
-          SSL_KEY: ${{ secrets.SSL_KEY }}
-          SSL_CERT_VOLUME: ${{ secrets.SSL_CERT_VOLUME }}
-          SSL_KEY_VOLUME: ${{ secrets.SSL_KEY_VOLUME }}
-          SERVER_PORT_EXPOSED1: ${{ secrets.SERVER_PORT_EXPOSED1 }}
-          SERVER_PORT_EXPOSED2: ${{ secrets.SERVER_PORT_EXPOSED2 }}
-          SERVER_NAME: ${{ secrets.SERVER_NAME }}
         run: docker compose up -d
 
       - name: check services health
         run: ./check_health.sh -t 20 database backend
         working-directory: scripts
+
+      - name: delete secret envs
+        if: always()
+        run: rm -f .env

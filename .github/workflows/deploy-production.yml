@@ -38,7 +38,3 @@ jobs:
       - name: check services health
         run: ./check_health.sh -t 20 database backend
         working-directory: scripts
-
-      - name: delete secret envs
-        if: always()
-        run: rm -f .env

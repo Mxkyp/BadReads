@@ -132,6 +132,7 @@ So newcomers can have a reference production ready-app as i think there are **no
 * [ ] Add Spring security, OAuth2
 * [ ] Add user, comment services
 * [ ] Add integration tests
+* [ ] Consider adding lombok and migrating from maven to gradle
 
 ### Frontend
 

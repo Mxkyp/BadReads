@@ -2,7 +2,6 @@ package mxkcpy.badreads.services;
 
 import mxkcpy.badreads.data.Book;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public interface BookService {

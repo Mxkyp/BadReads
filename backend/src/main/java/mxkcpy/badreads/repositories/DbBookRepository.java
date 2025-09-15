@@ -1,17 +1,10 @@
 package mxkcpy.badreads.repositories;
 
 import mxkcpy.badreads.data.Book;
-import mxkcpy.badreads.data.BookDetails;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.*;
-import java.util.zip.DataFormatException;
 
 @Repository
 public class DbBookRepository implements BookRepository {

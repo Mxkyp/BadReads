@@ -26,9 +26,9 @@ public class DbBookRepository implements BookRepository {
     }
 
     @Override
-    public List<Book> retrieveNRandomBooks(int numberOfBooks) {
+    public List<Book> retrieveNRandomBooks(int n) {
         try {
-            return jdbcTemplate.query(SqlQueries.selectNRandomBooks, new BookRowMapper(jdbcTemplate), numberOfBooks);
+            return jdbcTemplate.query(SqlQueries.selectNRandomBooks, new BookRowMapper(jdbcTemplate), n);
         }
         catch (DataAccessException e) {
             return null;

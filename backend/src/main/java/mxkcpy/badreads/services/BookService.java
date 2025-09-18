@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface BookService {
 
-    public List<Book> getRandomBooks(int booksToGet);
+    List<Book> getRandomBooks(int booksToGet);
 
-    public Book getBookById(int id);
+    Book getBookById(int id);
 }

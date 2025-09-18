@@ -5,11 +5,13 @@ import mxkcpy.badreads.exceptions.InvalidBookIdException;
 import mxkcpy.badreads.exceptions.NoBooksFoundException;
 import mxkcpy.badreads.repositories.BookRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Transactional
 public class PlainBookService implements BookService {
     BookRepository bookRepository;
 

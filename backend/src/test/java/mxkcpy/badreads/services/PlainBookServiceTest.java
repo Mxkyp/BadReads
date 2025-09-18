@@ -28,7 +28,7 @@ class PlainBookServiceTest {
     @Test
     void getRandomBooksHappyFlow() {
         Random random = new Random();
-        given(bookRepository.retrieveRandomBook()).willReturn(new Book(5, Mockito.mock(Book.Author.class), Mockito.mock(Book.Metadata.class)));
+        given(bookRepository.retrieveNRandomBooks(1)).willReturn(List.of(new Book(5, Mockito.mock(Book.Author.class), Mockito.mock(Book.Metadata.class))));
 
         List<Book> result = bookService.getRandomBooks(1);
         assertEquals(1, result.size());
@@ -47,7 +47,14 @@ class PlainBookServiceTest {
 
     @Test
     void getRandomBookNotFound() {
-        given(bookRepository.retrieveRandomBook()).willReturn(null);
+        given(bookRepository.retrieveNRandomBooks(5)).willReturn(null);
+
+        assertThrows(NoBooksFoundException.class, () -> bookService.getRandomBooks(5));
+    }
+
+    @Test
+    void getRandomBookBooksMissing() {
+        given(bookRepository.retrieveNRandomBooks(5)).willReturn(List.of(new Book(5, Mockito.mock(Book.Author.class), Mockito.mock(Book.Metadata.class))));
 
         assertThrows(NoBooksFoundException.class, () -> bookService.getRandomBooks(5));
     }

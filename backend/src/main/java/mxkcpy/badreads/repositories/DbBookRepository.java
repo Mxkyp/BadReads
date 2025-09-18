@@ -6,6 +6,8 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class DbBookRepository implements BookRepository {
     private final JdbcTemplate jdbcTemplate;
@@ -24,9 +26,9 @@ public class DbBookRepository implements BookRepository {
     }
 
     @Override
-    public Book retrieveRandomBook() {
+    public List<Book> retrieveNRandomBooks(int numberOfBooks) {
         try {
-            return jdbcTemplate.queryForObject(SqlQueries.selectRandomBook, new BookRowMapper(jdbcTemplate));
+            return jdbcTemplate.query(SqlQueries.selectNRandomBooks, new BookRowMapper(jdbcTemplate), numberOfBooks);
         }
         catch (DataAccessException e) {
             return null;

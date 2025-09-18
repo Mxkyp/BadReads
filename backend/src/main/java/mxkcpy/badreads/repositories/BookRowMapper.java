@@ -6,6 +6,8 @@ import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class BookRowMapper implements RowMapper<Book> {
@@ -17,7 +19,7 @@ public class BookRowMapper implements RowMapper<Book> {
 
     @Override
     public Book mapRow(ResultSet rs, int rowNum) throws SQLException {
-            return extractBookFrom(rs);
+        return extractBookFrom(rs);
     }
 
     private List<String> findAllCategories(int bookId) {

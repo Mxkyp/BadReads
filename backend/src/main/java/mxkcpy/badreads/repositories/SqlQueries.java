@@ -11,10 +11,10 @@ public final class SqlQueries {
             + " description, published_year, average_rating, number_of_pages,"
             + " ratings_count FROM public.books WHERE id = ?";
 
-    public static final String selectRandomBook = "SELECT id, (isbn).isbn13, (isbn).isbn10, title, subtitle,"
+    public static final String selectNRandomBooks = "SELECT id, (isbn).isbn13, (isbn).isbn10, title, subtitle,"
             + " (author).name, (author).surname, thumbnail,"
             + " description, published_year, average_rating, number_of_pages,"
-            + " ratings_count FROM public.books ORDER BY RANDOM() LIMIT 1";
+            + " ratings_count FROM public.books ORDER BY RANDOM() LIMIT ?";
 
     public static final String selectBookCategories = "SELECT type from categories c"
             + " inner join books_categories b on c.id = b.category_id and b.book_id = ?";

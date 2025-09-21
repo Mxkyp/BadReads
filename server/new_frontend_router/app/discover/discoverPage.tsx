@@ -103,3 +103,5 @@ export default function DiscoverPage() {
     </div>
   )
 }
+
+DiscoverPage.hydrate = true as const;

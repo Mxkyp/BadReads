@@ -30,6 +30,8 @@ services:
       SPRING_DATASOURCE_PASSWORD: ${SUPER_SECRET_PASSWORD}
       SPRING_SQL_INIT_MODE: always
       SPRING_AOP_AUTO: true
+    ports:
+      - 8080:8080
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8080"]
       interval: 10s

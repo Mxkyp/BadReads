@@ -28,7 +28,7 @@ function Fetch() {
               <img
                 src={book.metadata.thumbnailURL}
                 alt={book.metadata.title}
-                className="w-auto h-100 object-cover rounded-xl mb-2"
+                className="w-auto h-100 object-cover rounded-xl mb-2 place-self-center"
               />
               <div className="flex items-center gap-x-4 text-xs">
                 <a
@@ -40,23 +40,13 @@ function Fetch() {
               </div>
               <div className="group relative grow">
                 <h3 className="mt-3 text-lg/6 font-semibold text-gray-900 group-hover:text-gray-600">
-                  <a href={book.metadata.subtitle}>
+                  <a href={book.metadata.title}>
                     <span className="absolute inset-0" />
                     {book.metadata.title}
                   </a>
                 </h3>
+                {book.metadata.subtitle}
                 <p className="mt-5 line-clamp-3 text-sm/6 text-gray-600">{book.metadata.description}</p>
-              </div>
-              <div className="relative mt-8 flex items-center gap-x-4 justify-self-end">
-                <div className="text-sm/6">
-                  <p className="font-semibold text-gray-900">
-                    <a href={book.metadata.subtitle}>
-                      <span className="absolute inset-0" />
-                      {book.metadata.subtitle}
-                    </a>
-                  </p>
-                  <p className="text-gray-600">{book.metadata.subtitle}</p>
-                </div>
               </div>
             </article>
           ))}

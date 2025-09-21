@@ -24,11 +24,11 @@ function Fetch() {
   return (
         <div className="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 border-t border-gray-200 pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3">
           {data.map((book) => (
-            <article key={book.id} className="flex mx-5 max-w-xl flex-col items-start justify-between">
+            <article key={book.id} className="flex mx-5 max-w-xl flex-col p-8 items-start justify-between bg-white shadow rounded-2xl overflow-hidden">
               <img
                 src={book.metadata.thumbnailURL}
                 alt={book.metadata.title}
-                className="w-auto h-100 object-cover rounded-xl mb-2 place-self-center"
+                className="w-auto h-85 object-cover rounded-xl mb-2 place-self-center"
               />
               <div className="flex items-center gap-x-4 text-xs">
                 <a

@@ -3,7 +3,7 @@ import { Dialog, DialogPanel } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 
 const navigation = [
-  { name: 'Discover', href: './DiscoverBooksPage.tsx' },
+  { name: 'Discover', href: 'discover' },
   { name: 'Account', href: '#' },
 ]
 

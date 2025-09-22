@@ -24,11 +24,7 @@ type Book = {
 function Fetch() {
   const { isLoading, error, data} = useQuery({
     queryKey: ['repoData'],
-    queryFn: () => {
-    fetch('/api/').then(res =>
-      res.json()
-    )
-    }
+    queryFn: () => fetch('/api/').then(res => res.json()),
   })
 
   if (isLoading) return 'Loading...'

@@ -1,4 +1,4 @@
-import { QueryClient, QueryClientProvider, useQuery } from 'react-query'
+import { QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-query'
 import { motion } from "framer-motion";
 
 const queryClient = new QueryClient()
@@ -11,26 +11,45 @@ export default function Fetcher() {
   )
 }
 
+type Book = { 
+  id: number; 
+  author: {Name: string; Surname: string }; 
+  metadata: { isbn13: string; isbn10: string;
+              title: string; subtitle: string; 
+            genres: string[]; thumbnailURL: string; 
+            description: string; publishedYear:string; 
+            averageRating: number } 
+};
+
 function Fetch() {
-  const { isLoading, error, data } = useQuery('repoData', () =>
+  const { isLoading, error, data} = useQuery({
+    queryKey: ['repoData'],
+    queryFn: () => {
     fetch('/api/').then(res =>
       res.json()
     )
-  )
+    }
+  })
 
   if (isLoading) return 'Loading...'
 
   if (error) return 'An error has occurred: ' + error.message
 
+  //TODO: proper err handling
+  if (data === undefined) {
+    return "error reading data"
+  }
+
+  let bookData: Book[] = data;
+
   return (
         <div className="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 border-t border-gray-200 pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-          {data.map((book) => (
+          {bookData.map((book: Book) => (
 
             <motion.div
               key={book.id}
               whileHover={{ scale: 1.05 }}
               className="cursor-pointer"
-              href="book"
             >
             <article key={book.id} className="flex mx-5 max-w-xl flex-col p-8 items-start justify-between bg-white shadow rounded-2xl overflow-hidden">
               <img
@@ -62,3 +81,4 @@ function Fetch() {
         </div>
   )
 }
+

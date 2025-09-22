@@ -4,6 +4,8 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { Link } from "react-router";
 import './index.css'
 
+//TODO: css variables for transition time
+
 const navigation = [
   { name: 'Discover', href: '/discover' },
   { name: 'Account', href: '#' },
@@ -33,13 +35,13 @@ export default function Landing() {
           </div>
           <div className="hidden lg:flex lg:gap-x-12">
             {navigation.map((item) => (
-              <Link key={item.name} to={item.href} className="text-sm/6 font-semibold text-gray-900">
+              <Link key={item.name} to={item.href} className="text-sm/6 font-semibold text-gray-900 transition duration-400 hover:text-gray-700">
                 {item.name}
               </Link>
             ))}
           </div>
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-            <Link to="/login" className="text-sm/6 font-semibold text-gray-900">
+            <Link to="/login" className="text-sm/6 font-semibold text-gray-900 transition duration-400 hover:text-gray-700">
               Log in <span aria-hidden="true">&rarr;</span>
             </Link>
           </div>
@@ -107,7 +109,7 @@ export default function Landing() {
         </div>
         <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
           <div className="hidden sm:mb-8 sm:flex sm:justify-center">
-            <div className="relative rounded-full px-3 py-1 text-sm/6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
+            <div className="relative rounded-full px-3 py-1 text-sm/6 transition duration-400 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
               Read more about the project.{' '}
               <a href="https://github.com/Mxkyp/BadReads" className="font-semibold text-[var(--color-dark)]">
                 <span aria-hidden="true" className="absolute inset-0" />
@@ -123,15 +125,12 @@ export default function Landing() {
               Discover new books, tailored to your taste.
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
-              <a
-                href="#"
-                className="rounded-md bg-[var(--color-dark)] px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-[var(--color-medium)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-dark)]"
+              <Link
+                to="/discover"
+                className="rounded-lg bg-[var(--color-dark)] transition duration-400 px-4.5 py-3 text-m font-semibold text-white shadow-xs hover:bg-[var(--color-medium)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-dark)]"
               >
                 Get started
-              </a>
-              <a href="#" className="text-sm/6 font-semibold text-gray-900">
-                Learn more <span aria-hidden="true">→</span>
-              </a>
+              </Link>
             </div>
           </div>
         </div>

@@ -8,7 +8,7 @@ import './index.css'
 
 const navigation = [
   { name: 'Discover', href: '/discover' },
-  { name: 'Account', href: '#' },
+  { name: 'Account', href: '/login' },
 ]
 
 export default function Landing() {

@@ -1,5 +1,6 @@
 import './index.css'
 import { Link } from "react-router";
+import logoUrl from '/src/assets/logo.png'
 export default function LoginPage() {
   return (
     <>
@@ -15,7 +16,7 @@ export default function LoginPage() {
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
             alt="Your Company"
-            src="/src/assets/logo.png"
+            src={logoUrl}
             className="mx-auto h-50 w-auto"
           />
           <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-white">Sign in to your account</h2>

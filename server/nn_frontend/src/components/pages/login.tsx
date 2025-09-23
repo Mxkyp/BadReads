@@ -1,6 +1,7 @@
-import './index.css'
+import '../css/index.css'
 import { Link } from "react-router";
 import logoUrl from '/src/assets/logo.png'
+
 export default function LoginPage() {
   return (
     <>

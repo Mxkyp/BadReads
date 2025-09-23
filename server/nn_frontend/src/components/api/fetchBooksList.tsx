@@ -2,26 +2,18 @@ import { QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-quer
 import Box from '@mui/material/Box';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
+import { type Book } from '../types'
+import { Link } from "react-router";
 
 const queryClient = new QueryClient()
 
-export default function Fetcher() {
+export default function FetchBookList() {
   return (
     <QueryClientProvider client={queryClient}>
       <Fetch />
     </QueryClientProvider>
   )
 }
-
-type Book = { 
-  id: number; 
-  author: {Name: string; Surname: string }; 
-  metadata: { isbn13: string; isbn10: string;
-              title: string; subtitle: string; 
-            genres: string[]; thumbnailURL: string; 
-            description: string; publishedYear:string; 
-            averageRating: number } 
-};
 
 function Fetch() {
   const { isLoading, error, data} = useQuery({
@@ -40,11 +32,13 @@ function Fetch() {
 
   let bookData: Book[] = data;
   //TODO: Add variable number of columns based on screen size
+  //TODO: Seperate bookList into a seperate component
   return (
     <div className="mx-auto mt-10 flex flex-row max-w-2xl border-t border-gray-200 pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none ">
       <Box className="grow" sx={{ overflowY: 'scroll' }}>
         <ImageList variant="masonry" cols={8} gap={8}>
           {bookData.map((book: Book) => (
+            <Link to={"./book/" + book.id}>
             <ImageListItem key={book.id}>
               <img
                 className="hover:scale-105 transition duration-400"
@@ -54,6 +48,7 @@ function Fetch() {
                 loading="lazy"
               />
             </ImageListItem>
+            </Link>
           ))}
         </ImageList>
       </Box>

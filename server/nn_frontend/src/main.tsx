@@ -1,16 +1,17 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import App from './App.tsx'
-import DiscoveryPage from './discoverPage.tsx'
-import Error from './errorPage.tsx'
-import LoginPage from './loginPage.tsx'
 import { createBrowserRouter, RouterProvider } from "react-router";
 
+import LandingPage from './components/pages/landing.tsx'
+import DiscoveryPage from './components/pages/discover.tsx'
+import ErrorPage from './components/pages/error.tsx'
+import LoginPage from './components/pages/login.tsx'
+
 const router = createBrowserRouter([
-  {path:"/", element:<App/>},
+  {path:"/", element:<LandingPage />},
   {path:"/discover", element:<DiscoveryPage/>},
   {path:"/login", element:<LoginPage />},
-  {path:"*", element: <Error/>}
+  {path:"*", element: <ErrorPage />}
 ]);
 
 createRoot(document.getElementById('root')!).render(

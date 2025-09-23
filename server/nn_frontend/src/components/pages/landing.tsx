@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Dialog, DialogPanel } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { Link } from "react-router";
-import './index.css'
+import '../css/index.css'
 
 //TODO: css variables for transition time
 
@@ -11,7 +11,7 @@ const navigation = [
   { name: 'Account', href: '/login' },
 ]
 
-export default function Landing() {
+export default function LandingPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
@@ -150,5 +150,3 @@ export default function Landing() {
     </div>
   )
 }
-
-Landing.hydrate = true as const;

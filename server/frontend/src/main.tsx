@@ -1,28 +1,21 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import React, { useState } from "react";
-import ReactDOM from "react-dom/client";
-import './globals.css';
-import GoodreadsCloneLanding from "./page.tsx";
-import BookPage from "./book/page.tsx"; 
-import { BooksContext } from "./lib/BooksContext";
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import { createBrowserRouter, RouterProvider } from "react-router";
 
-export default function App() {
-  const [books, setBooks] = useState<any[]>([]);
+import LandingPage from './components/pages/landing.tsx'
+import DiscoveryPage from './components/pages/discover.tsx'
+import ErrorPage from './components/pages/error.tsx'
+import LoginPage from './components/pages/login.tsx'
 
-  const router = createBrowserRouter([
-    { path: "/", element: <GoodreadsCloneLanding /> },
-    { path: "/book", element: <BookPage /> },
-  ]);
+const router = createBrowserRouter([
+  {path:"/", element:<LandingPage />},
+  {path:"/discover", element:<DiscoveryPage/>},
+  {path:"/login", element:<LoginPage />},
+  {path:"*", element: <ErrorPage />}
+]);
 
-  return (
-    <BooksContext.Provider value={{ books, setBooks }}>
-      <RouterProvider router={router} />
-    </BooksContext.Provider>
-  );
-}
-
-ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+createRoot(document.getElementById('root')!).render(
+  <StrictMode>
+    <RouterProvider router={router}/>
+  </StrictMode>,
+)

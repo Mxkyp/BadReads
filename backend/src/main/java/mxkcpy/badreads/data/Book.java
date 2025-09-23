@@ -1,32 +1,13 @@
 package mxkcpy.badreads.data;
 
-public final class Book {
+import java.util.List;
 
-    private final BookDetails details;
-    private final int id;
+public record Book(int id, Author author, Metadata metadata)
+{
 
-    public Book(int id, BookDetails details) {
-        this.id = id;
-        this.details = details;
-    }
-
-    public BookDetails getDetails() {
-        return details;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this) {
-            return true;
-        }
-        if (!(o instanceof Book)) {
-            return false;
-        }
-        Book other = (Book) o;
-        return this.id == other.id && this.details.equals(other.details);
-    }
-
-    public int getId() {
-        return id;
-    }
+    public record Author(String Name, String Surname) { }
+    public record Metadata(String isbn13, String isbn10, String title,
+                           String subtitle, List<String> genres,
+                           String thumbnailURL, String description,
+                           String publishedYear, double averageRating, int pageNumber) { }
 }

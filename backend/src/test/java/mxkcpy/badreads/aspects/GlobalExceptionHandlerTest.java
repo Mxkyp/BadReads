@@ -35,7 +35,7 @@ public class GlobalExceptionHandlerTest {
 
     @Test
     void handleNoBookReturned_ShouldReturnInternalServerErrorResponse() {
-        String errorMessage = "Could not find any books";
+        String errorMessage = "Could not find the desired number of books";
         NoBooksFoundException ex = new NoBooksFoundException();
 
         ResponseEntity<?> responseEntity = exceptionHandler.handleNoBookReturned(ex);

@@ -15,5 +15,5 @@ RUN echo VITE_SERVER_NAME=${SERVER_NAME} > .env.production
 RUN npm run build
 
 FROM nginx:stable-alpine3.21-perl
-COPY --from=builder /usr/src/app/dist /etc/nginx/html
+COPY --from=builder /usr/src/app/dist/ /etc/nginx/html
 COPY nginx.conf /etc/nginx/templates/nginx.conf.template

@@ -2,9 +2,11 @@ package mxkcpy.badreads.repositories;
 
 import mxkcpy.badreads.data.Book;
 
+import java.util.List;
+
 public interface BookRepository {
 
-    public Book findById(int id);
+    Book findById(int id);
 
-    public Book retrieveRandomBook();
+    List<Book> retrieveNRandomBooks(int numberOfBooks);
 }

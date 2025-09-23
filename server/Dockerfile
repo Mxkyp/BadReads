@@ -2,11 +2,11 @@ FROM node:20-alpine as builder
 
 WORKDIR /usr/src/app
 
-COPY ./nn_frontend/package.json ./nn_frontend/package-lock.json* ./
+COPY ./frontend/package.json ./frontend/package-lock.json* ./
 
 RUN npm install
 
-COPY ./nn_frontend/ .
+COPY ./frontend/ .
 
 ARG SERVER_NAME=localhost
 

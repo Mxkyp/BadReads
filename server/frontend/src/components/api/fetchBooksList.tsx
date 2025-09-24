@@ -33,10 +33,11 @@ function Fetch() {
   let bookData: Book[] = data;
   //TODO: Add variable number of columns based on screen size
   //TODO: Seperate bookList into a seperate component
+  let colNumber: number = window.innerWidth < 700 ? 3 : 8;
   return (
     <div className="mx-auto mt-10 flex flex-row max-w-2xl border-t border-gray-200 pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none ">
       <Box className="grow" sx={{ overflowY: 'scroll' }}>
-        <ImageList variant="masonry" cols={8} gap={8}>
+        <ImageList variant="masonry" cols={colNumber} gap={8}>
           {bookData.map((book: Book) => (
             <Link to={"./book/" + book.id}>
             <ImageListItem key={book.id}>

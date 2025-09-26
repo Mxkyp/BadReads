@@ -11,8 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-//@CrossOrigin(origins = "https://server")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "https://server")
 @RestController
 public final class BookController {
     private final BookService bookService;

@@ -1,4 +1,5 @@
 import FetchBooksList from "../api/fetchBooksList.tsx"
+import { useState } from 'react';
 
 export default function DiscoverPage() {
   return (
@@ -9,7 +10,9 @@ export default function DiscoverPage() {
           <p className="mt-2 text-lg/8 text-gray-600">selected works, specially for you.</p>
         </div>
       </div>
-      <FetchBooksList/>
+        <FetchBooksList/>
     </div>
   )
 }
+
+

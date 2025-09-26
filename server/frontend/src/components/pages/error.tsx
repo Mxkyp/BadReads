@@ -1,6 +1,10 @@
 import { Link } from "react-router";
-
-export default function ErrorPage({ code, title, description }) {
+type props = {
+  code: number;
+  title: string;
+  description: string;
+};
+export default function ErrorPage({ code, title, description }: props) {
   return (
     <>
       <main className="grid min-h-full place-items-center bg-white px-6 py-24 sm:py-32 lg:px-8">

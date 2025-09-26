@@ -1,5 +1,4 @@
 import FetchBooksList from "../api/fetchBooksList.tsx"
-import { useState } from 'react';
 
 export default function DiscoverPage() {
   return (

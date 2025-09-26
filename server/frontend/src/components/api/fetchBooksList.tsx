@@ -21,7 +21,7 @@ function Fetch() {
 
   const { isLoading, error, data} = useQuery({
     queryKey: ['repoData'],
-    queryFn: () => fetch('http://localhost:8080/').then(res => res.json()),
+    queryFn: () => fetch('/api/').then(res => res.json()),
     staleTime: Infinity
   })
 
@@ -33,10 +33,10 @@ function Fetch() {
   
   //TODO: make this a redirect to a err page
   
-  if (error) return <ErrorPage code="500" title="whoops!" description="It appears my there is a problem with the server. I am on it! ~ Mikolaj"/>;
+  if (error) return <ErrorPage code={500} title="whoops!" description="It appears my there is a problem with the server. I am on it! ~ Mikolaj"/>;
 
   if (data === undefined) {
-     return <ErrorPage code="500" title="whoops!" description="It appears my there is a problem with the server. I am on it! ~ Mikolaj"/>
+     return <ErrorPage code={500} title="whoops!" description="It appears my there is a problem with the server. I am on it! ~ Mikolaj"/>
   }
 
   let bookData: Book[] = data;

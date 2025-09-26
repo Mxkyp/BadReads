@@ -11,7 +11,7 @@ const router = createBrowserRouter([
   {path:"/", element:<LandingPage />},
   {path:"/discover", element:<DiscoveryPage/>},
   {path:"/login", element:<LoginPage />},
-  {path:"*", element: <ErrorPage />}
+  {path:"*", element: <ErrorPage code={404} title={"page not found"} description={"Sorry, we couldn’t find the page you’re looking for."}/>}
 ]);
 
 createRoot(document.getElementById('root')!).render(

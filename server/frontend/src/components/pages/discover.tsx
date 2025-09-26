@@ -9,7 +9,9 @@ export default function DiscoverPage() {
           <p className="mt-2 text-lg/8 text-gray-600">selected works, specially for you.</p>
         </div>
       </div>
-      <FetchBooksList/>
+        <FetchBooksList/>
     </div>
   )
 }
+
+

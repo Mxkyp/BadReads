@@ -1,13 +1,15 @@
 import { QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-query'
 import Box from '@mui/material/Box';
-import ImageList from '@mui/material/ImageList';
-import ImageListItem from '@mui/material/ImageListItem';
-import { type Book } from '../types'
-import { Link } from "react-router";
+import { type Book } from '../types';
+import BookList  from '../BookList.tsx';
+import { RingLoader } from "react-spinners";
+import "../css/index.css"
+import ErrorPage from "../pages/error.tsx"
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient();
 
 export default function FetchBookList() {
+  
   return (
     <QueryClientProvider client={queryClient}>
       <Fetch />
@@ -16,42 +18,33 @@ export default function FetchBookList() {
 }
 
 function Fetch() {
+
   const { isLoading, error, data} = useQuery({
     queryKey: ['repoData'],
     queryFn: () => fetch('/api/').then(res => res.json()),
+    staleTime: Infinity
   })
 
-  if (isLoading) return 'Loading...'
+  if (isLoading) return (
+    <div className="mx-auto mt-10 flex items-center justify-center flex-row flex-column max-w-2xl border-t border-gray-200 pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none ">
+      <RingLoader className="mt-30 self-center" color="var(--color-dark)" loading={isLoading} size={300} />
+    </div>
+  );
+  
+  //TODO: make this a redirect to a err page
+  
+  if (error) return <ErrorPage code={500} title="whoops!" description="It appears my there is a problem with the server. I am on it! ~ Mikolaj"/>;
 
-  if (error) return 'An error has occurred: ' + error.message
-
-  //TODO: proper err handling
   if (data === undefined) {
-    return "error reading data"
+     return <ErrorPage code={500} title="whoops!" description="It appears my there is a problem with the server. I am on it! ~ Mikolaj"/>
   }
 
   let bookData: Book[] = data;
-  //TODO: Add variable number of columns based on screen size
-  //TODO: Seperate bookList into a seperate component
-  let colNumber: number = window.innerWidth < 700 ? 3 : 8;
+
   return (
     <div className="mx-auto mt-10 flex flex-row max-w-2xl border-t border-gray-200 pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none ">
       <Box className="grow" sx={{ overflowY: 'scroll' }}>
-        <ImageList variant="masonry" cols={colNumber} gap={8}>
-          {bookData.map((book: Book) => (
-            <Link to={"./book/" + book.id}>
-            <ImageListItem key={book.id}>
-              <img
-                className="hover:scale-105 transition duration-400"
-                srcSet={`${book.metadata.thumbnailURL}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                src={`${book.metadata.thumbnailURL}?w=248&fit=crop&auto=format`}
-                alt={book.metadata.title}
-                loading="lazy"
-              />
-            </ImageListItem>
-            </Link>
-          ))}
-        </ImageList>
+        <BookList bookData={bookData}/>
       </Box>
     </div>
   )
